@@ -97,10 +97,24 @@ CMakeFiles/cpdp.dir/src/lib/dag.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/dag.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/dag.cpp -o CMakeFiles/cpdp.dir/src/lib/dag.cpp.s
 
+CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o: CMakeFiles/cpdp.dir/flags.make
+CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o: ../src/lib/evaluate.cpp
+CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -c /home/jh/code/JHPC/src/lib/evaluate.cpp
+
+CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/evaluate.cpp > CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i
+
+CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/evaluate.cpp -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s
+
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o: ../src/lib/gene_express.cpp
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -c /home/jh/code/JHPC/src/lib/gene_express.cpp
 
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.s: cmake_force
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.o: ../src/lib/graph.cpp
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cpdp.dir/src/lib/graph.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cpdp.dir/src/lib/graph.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/graph.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/graph.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/graph.cpp.o -c /home/jh/code/JHPC/src/lib/graph.cpp
 
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/cpdp.dir/src/lib/graph.cpp.s: cmake_force
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o: ../src/lib/ungraph.cpp
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o -c /home/jh/code/JHPC/src/lib/ungraph.cpp
 
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.i: cmake_force
@@ -143,6 +157,7 @@ CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s: cmake_force
 cpdp_OBJECTS = \
 "CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/dag.cpp.o" \
+"CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/graph.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
@@ -152,12 +167,13 @@ cpdp_EXTERNAL_OBJECTS =
 
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/dag.cpp.o
+../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/graph.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/build.make
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX shared library ../lib/libcpdp.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library ../lib/libcpdp.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cpdp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

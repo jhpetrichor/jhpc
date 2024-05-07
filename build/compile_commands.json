@@ -11,6 +11,11 @@
 },
 {
   "directory": "/home/jh/code/JHPC/build",
+  "command": "/usr/bin/g++ -Dcpdp_EXPORTS -I/home/jh/code/JHPC/include -g -fPIC -std=gnu++14 -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -c /home/jh/code/JHPC/src/lib/evaluate.cpp",
+  "file": "/home/jh/code/JHPC/src/lib/evaluate.cpp"
+},
+{
+  "directory": "/home/jh/code/JHPC/build",
   "command": "/usr/bin/g++ -Dcpdp_EXPORTS -I/home/jh/code/JHPC/include -g -fPIC -std=gnu++14 -o CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -c /home/jh/code/JHPC/src/lib/gene_express.cpp",
   "file": "/home/jh/code/JHPC/src/lib/gene_express.cpp"
 },
@@ -26,17 +31,12 @@
 },
 {
   "directory": "/home/jh/code/JHPC/build",
-  "command": "/usr/bin/g++  -I/home/jh/code/JHPC/include -g -std=gnu++14 -o CMakeFiles/test.dir/src/test.cpp.o -c /home/jh/code/JHPC/src/test.cpp",
-  "file": "/home/jh/code/JHPC/src/test.cpp"
+  "command": "/usr/bin/g++  -I/home/jh/code/JHPC/include -g -std=gnu++14 -o CMakeFiles/bops.dir/src/bops.cpp.o -c /home/jh/code/JHPC/src/bops.cpp",
+  "file": "/home/jh/code/JHPC/src/bops.cpp"
 },
 {
   "directory": "/home/jh/code/JHPC/build",
-  "command": "/usr/bin/g++  -I/home/jh/code/JHPC/include -g -std=gnu++14 -o CMakeFiles/new.dir/src/new.cpp.o -c /home/jh/code/JHPC/src/new.cpp",
-  "file": "/home/jh/code/JHPC/src/new.cpp"
-},
-{
-  "directory": "/home/jh/code/JHPC/build",
-  "command": "/usr/bin/g++  -I/home/jh/code/JHPC/include -g -std=gnu++14 -o CMakeFiles/cns.dir/src/cns.cpp.o -c /home/jh/code/JHPC/src/cns.cpp",
-  "file": "/home/jh/code/JHPC/src/cns.cpp"
+  "command": "/usr/bin/g++  -I/home/jh/code/JHPC/include -g -std=gnu++14 -o CMakeFiles/dpin.dir/src/dpin.cpp.o -c /home/jh/code/JHPC/src/dpin.cpp",
+  "file": "/home/jh/code/JHPC/src/dpin.cpp"
 }
 ]

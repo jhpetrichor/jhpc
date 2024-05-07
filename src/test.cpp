@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-05 12:05:20
+ * @LastEditTime: 2024-05-07 15:44:10
  */
 
 #include "bio_information.h"
@@ -37,7 +37,7 @@ int main() {
         UnGraph::split_graph(queue_ppi, splitted_ppi, bio, dag);
     }
     std::cout << "splitted_ppi size: " << splitted_ppi.size() << std::endl;
-    std::set<std::set<std::string>> complexes;
+    vector<std::set<std::string>> complexes;
     for (auto &g: splitted_ppi) {
         g.get_complexes1(g, complexes, 0.45);
         std::cout << complexes.size() << std::endl;
@@ -67,7 +67,7 @@ int main() {
 
 
     std::string rest_file = "./test0.txt";
-    Complex::write_complex_to_file(std::move(result), std::move(rest_file));
+    Complex::write_complex_to_file(result, rest_file);
 
     return 0;
 }

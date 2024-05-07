@@ -1,3 +1,9 @@
+/*
+ * @brief: 
+ * @Author: jh
+ * @Date: 2024-05-06 13:24:02
+ * @LastEditTime: 2024-05-07 20:58:07
+ */
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
 // Yeast
@@ -5,6 +11,7 @@
 #define PATH_IS_A        "/home/jh/code/JHPC/dataset/Yeast/DAG/is_a.txt"
 #define PATH_PART_OF     "/home/jh/code/JHPC/dataset/Yeast/DAG/part_of.txt"
 #define PATH_GO_TERMS    "/home/jh/code/JHPC/dataset/Yeast/DAG/go_term.txt"
+#define PROTEIN_GO_FILE  "/home/jh/code/JHPC/dataset/Yeast/DAG/protein-go.txt"
 
 // go_information
 #define GO_SLIM          "/home/jh/code/JHPC/dataset/Yeast/DAG/protein-go.txt"
@@ -36,7 +43,6 @@
 #define MAX_MATCH_INDEX   0.45     // 允许最大的匹配阈值
 // Human
 
-#define MAX_MATCHED        4
 #define COMPLEX_MAX_SIZE   20
 
 // p-value

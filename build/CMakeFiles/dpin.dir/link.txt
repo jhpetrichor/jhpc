@@ -1,0 +1,1 @@
+/usr/bin/g++ -g CMakeFiles/dpin.dir/src/dpin.cpp.o -o ../bin/dpin   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 

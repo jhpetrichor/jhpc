@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-05 10:17:34
+ * @LastEditTime: 2024-05-07 21:08:04
  */
 
 #ifndef COMPLEX_PREDICT_UNGRAPH_H
@@ -68,15 +68,17 @@ public:
 
 class UnGraph {
 public:
+    static map<string, set<string>> go_protein;
+    static map<string, set<string>> protein_go;
     vector<ProteinPtr> ID2Protein;
     map<ProteinPtr, int> Protein2ID;
     map<string, int> protein_name_id;
     set<ProteinPtr> proteins;
+    set<string> proteins_name;
     vector<EdgePtr> edges;
     vector<vector<bool>> connected;    // 存储个节点是否直接相连
     map<set<string>, int> Edge2ID;
-
-
+    
     /**
      * @description: 从文件中读取文件
      * @param {string} ppi_file PPI连边文件
@@ -92,6 +94,13 @@ public:
     UnGraph() = default;
     ~UnGraph();
     void display() const;
+    static void read_go_protein(string& file_path, const set<string>& protein_set);
+    /**
+     * @brief: 计算蛋白质复合物的p-value， 一般而言p-value越小，则越具有生物学意义，通常取value <= 0.01
+     * @param {UnGraph&} g
+     * @return p-value
+     */    
+    static double calculate_p_value(UnGraph& g, set<string>& complex);
     EdgePtr getEdge(const ProteinPtr& protein1, const ProteinPtr& protein2);
     double agglomeration_coefficient(const vector<ProteinPtr>& nodes);
     void weight_by_go_term(BioInformation& bio, DAG& dag);
@@ -123,11 +132,11 @@ public:
 
     // BOPS相关算法
 //    static int get_fa(int fa[], int x);
-    void calculate_balanced_weight() const;
+    void calculate_balanced_weight();
     static int find_parent(int protein, map<int, int>& parent);
     static void split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag);
     static void get_complexes(UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
-    static void get_complexes1(UnGraph& g, set<set<string>>& complexes, double similarity_threshold);
+    static void get_complexes1(UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
 
     /**
      * @brief: 为节点添加权重。节点的权重是连边的权重之和
@@ -135,7 +144,6 @@ public:
      */
     vector<double> calculate_protein_weight() const;
     void write_to_file(const string& file_path) const;
-//    void
 private:
     static void read_edge_list(string&, set<string>&, vector<string>&);
     static void read_edge_list_with_weight(string&, set<string>&, vector<string>&, vector<double>&);
@@ -149,16 +157,17 @@ public:
     double cohesion;
     vector<string> proteins;
 
-    Complex(const UnGraph& g, vector<string>&& _proteins);
+    Complex(const UnGraph& g, vector<string>& _proteins);
     double complex_match_score(Complex& other);
     static bool CompareBySize(const Complex& a, const Complex& b);
-    static set<set<string>> read_complex_from_file(string&& file_path);
-    static void write_complex_to_file(vector<Complex>&&, string&& file_path);
-    static void write_complex_to_file(vector<set<string>>&&, string&& file_path);
-    static void write_complex_to_file(set<set<string>>&&, string&& file_path);
-    static double calculate_cohesion(const UnGraph& g, set<string>&& _proteins);
-    static void update_complexes(vector<Complex>& complexes, Complex&& complex);
-    static void update_complexes(vector<set<string>>& complexes, set<string>&& complex);
+    static bool CompareSetBySize(const set<string>& a, const set<string>& b);
+    static set<set<string>> read_complex_from_file(string& file_path);
+    static void write_complex_to_file(vector<Complex>&, string& file_path);
+    static void write_complex_to_file(vector<set<string>>&, string& file_path);
+    static void write_complex_to_file(set<set<string>>&, string& file_path);
+    static double calculate_cohesion(const UnGraph& g, set<string>& _proteins);
+    static void update_complexes(vector<Complex>& complexes, Complex& complex);
+    static void update_complexes(vector<set<string>>& complexes, set<string>& complex);
     void display() const;
 };
 

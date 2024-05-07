@@ -1,0 +1,78 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "complex_predict",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "bops::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-bops-Debug-3fa82b7c3cf865c88ae3.json",
+					"name" : "bops",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "cpdp::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-cpdp-Debug-6cd6d914a9f71f814204.json",
+					"name" : "cpdp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "dpin::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-dpin-Debug-6db1b8db11d627e8d1a4.json",
+					"name" : "dpin",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/jh/code/JHPC/cmake-build-debug",
+		"source" : "/home/jh/code/JHPC"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

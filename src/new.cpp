@@ -2,7 +2,7 @@
  * @Description:
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-05 12:05:20
+ * @LastEditTime: 2024-05-06 18:28:57
  */
 
 #include "bio_information.h"
@@ -27,9 +27,9 @@ int main() {
     g.weight_by_go_term(bio, dag);
     // g.write_to_file("/home/jh/code/complex_predict/bin/collins.txt");
     g.calculate_balanced_weight();
-    for(auto& e: g.edges) {
-        e->balanced_weight += e->node_a->jaccard_similarity(e->node_b);
-    }
+    // for(auto& e: g.edges) {
+    //     e->balanced_weight += e->node_a->jaccard_similarity(e->node_b);
+    // }
     std::queue<UnGraph> queue_ppi;
     queue_ppi.push(std::move(g));
     std::vector<UnGraph> splitted_ppi;
@@ -67,7 +67,7 @@ int main() {
     //
 
     std::string rest_file = "./new.txt";
-    Complex::write_complex_to_file(std::move(complexes), std::move(rest_file));
+    Complex::write_complex_to_file(complexes, rest_file);
 
     return 0;
 }

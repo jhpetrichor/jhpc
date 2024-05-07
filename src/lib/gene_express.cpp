@@ -75,7 +75,6 @@ double GeneExpress::active_three_sigma(double mean, double varience) {
     return mean + 3  * s_varience * (1.0 - f);
 }
 
-
 // need todo()!
 map<string, double> GeneExpress::active_by_top() {
     map<string, double> result;
@@ -85,14 +84,6 @@ map<string, double> GeneExpress::active_by_top() {
         // return temp_expression[10];
         result.insert(make_pair(it.first, temp_expression[12]));
     }
-
-    // for(auto& it: gene_express) {
-    //     cout << it.first << endl;
-    //     for(auto value: it.second) {
-    //         cout << value << "\t";
-    //     }
-    //     cout << endl;
-    // }
     return move(result);
 }
 
@@ -101,17 +92,14 @@ vector<UnGraph> GeneExpress::build_dynamic_PPI(const UnGraph* g, DPIN_MEHTOD met
         case DPIN_MEHTOD::THREE_SIGMA: {
             auto active = activate_by_three_sigma();
             return move(build_dynamic_PPI_by_active(g, active, 36));
-            break;
         }
         case DPIN_MEHTOD::TOP: {
             auto active = active_by_top();
             return move(build_dynamic_PPI_by_active(g, active, 36));
-            break;
         }
         case DPIN_MEHTOD::TIME: {
             auto active = activate_by_three_sigma();
             return move(build_dynamic_PPI_by_time(g, active, 12));
-            break;
         }
     }
 }
@@ -121,6 +109,7 @@ vector<UnGraph> GeneExpress::build_dynamic_PPI_by_active(const UnGraph* g, map<s
     // update proteins
     vector<set<string>> set_proteins(count);
     vector<vector<string>> list_edges(count);
+    vector<vector<double>> edge_weight(count);
     for(auto& protein: g->ID2Protein) {
         auto it = gene_express.find(protein->protein_name);
         // 没有这个基因的表达信息，则在所有自网络中保留
@@ -132,7 +121,8 @@ vector<UnGraph> GeneExpress::build_dynamic_PPI_by_active(const UnGraph* g, map<s
         }
         // 存在基因的表达信息，则需要筛选，满足阈值则保留
         for(int i = 0; i < count; ++i) {
-            if(it->second[i] > active[it->first]) {
+            double temp_express = (it->second)[i];
+            if( temp_express > active[it->first]) {
                 set_proteins[i].insert(it->first);
             }
          }
@@ -140,21 +130,18 @@ vector<UnGraph> GeneExpress::build_dynamic_PPI_by_active(const UnGraph* g, map<s
 
     // update edges 
     for(auto& e: g->edges) {
-        // if(set_proteins.count(e->node_a->protein_name) && set_proteins.count(e->node_b->protein_name)) {
-
-        // }
         for(int i = 0; i < count; ++i) {
             if(set_proteins[i].count(e->node_a->protein_name) && set_proteins[i].count(e->node_b->protein_name)) {
                 list_edges[i].emplace_back(e->node_a->protein_name);
                 list_edges[i].emplace_back(e->node_b->protein_name);
+                edge_weight[i].emplace_back(e->balanced_weight);
             }
         }
     }
-    cout << "aaa" << endl;
     for(int i = 0; i < count; ++i) {
-        UnGraph g(move(set_proteins[i]), move(list_edges[i]));
-        cout << g.proteins.size() << "\t" << g.edges.size() << endl;
-        dpins[i] = move(g);
+        cout << set_proteins[i].size() << "\t" << list_edges[i].size() << endl;
+        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]), move(edge_weight[i]));
+        dpins[i] = temp_graph;
     }
 
     return move(dpins);
@@ -164,6 +151,7 @@ vector<UnGraph> GeneExpress::build_dynamic_PPI_by_time(const UnGraph* g, map<str
     vector<UnGraph> dpins(12);
     vector<set<string>> set_proteins(count);
     vector<vector<string>> list_edges(count);
+    vector<vector<double>> edge_weight(count);
     for(auto& protein: g->ID2Protein) {
         auto it = gene_express.find(protein->protein_name);
         // 没有这个基因的表达信息，则在所有自网络中保留
@@ -192,14 +180,14 @@ vector<UnGraph> GeneExpress::build_dynamic_PPI_by_time(const UnGraph* g, map<str
             if(set_proteins[i].count(e->node_a->protein_name) && set_proteins[i].count(e->node_b->protein_name)) {
                 list_edges[i].emplace_back(e->node_a->protein_name);
                 list_edges[i].emplace_back(e->node_b->protein_name);
+                edge_weight[i].emplace_back(e->balanced_weight);
             }
         }
     }
-    cout << "aaa" << endl;
     for(int i = 0; i < count; ++i) {
-        UnGraph g(move(set_proteins[i]), move(list_edges[i]));
-        cout << g.proteins.size() << "\t" << g.edges.size() << endl;
-        dpins[i] = move(g);
+        std::cout << set_proteins.size() << "\t" << list_edges.size() << endl;
+        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]), move(edge_weight[i]));
+        dpins[i] = temp_graph;
     }
     return move(dpins);
 }

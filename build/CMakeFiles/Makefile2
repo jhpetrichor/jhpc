@@ -64,9 +64,8 @@ CMAKE_BINARY_DIR = /home/jh/code/JHPC/build
 
 # The main recursive "all" target.
 all: CMakeFiles/cpdp.dir/all
-all: CMakeFiles/test.dir/all
-all: CMakeFiles/new.dir/all
-all: CMakeFiles/cns.dir/all
+all: CMakeFiles/bops.dir/all
+all: CMakeFiles/dpin.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -75,9 +74,8 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/cpdp.dir/clean
-clean: CMakeFiles/test.dir/clean
-clean: CMakeFiles/new.dir/clean
-clean: CMakeFiles/cns.dir/clean
+clean: CMakeFiles/bops.dir/clean
+clean: CMakeFiles/dpin.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -87,12 +85,12 @@ clean: CMakeFiles/cns.dir/clean
 CMakeFiles/cpdp.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=3,4,5,6,7,8 "Built target cpdp"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=3,4,5,6,7,8,9 "Built target cpdp"
 .PHONY : CMakeFiles/cpdp.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/cpdp.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 7
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cpdp.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 0
 .PHONY : CMakeFiles/cpdp.dir/rule
@@ -107,82 +105,56 @@ CMakeFiles/cpdp.dir/clean:
 .PHONY : CMakeFiles/cpdp.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/test.dir
+# Target rules for target CMakeFiles/bops.dir
 
 # All Build rule for target.
-CMakeFiles/test.dir/all: CMakeFiles/cpdp.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=11,12 "Built target test"
-.PHONY : CMakeFiles/test.dir/all
+CMakeFiles/bops.dir/all: CMakeFiles/cpdp.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=1,2 "Built target bops"
+.PHONY : CMakeFiles/bops.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 8
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test.dir/all
+CMakeFiles/bops.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 9
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/bops.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 0
-.PHONY : CMakeFiles/test.dir/rule
+.PHONY : CMakeFiles/bops.dir/rule
 
 # Convenience name for target.
-test: CMakeFiles/test.dir/rule
-.PHONY : test
+bops: CMakeFiles/bops.dir/rule
+.PHONY : bops
 
 # clean rule for target.
-CMakeFiles/test.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/clean
-.PHONY : CMakeFiles/test.dir/clean
+CMakeFiles/bops.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/clean
+.PHONY : CMakeFiles/bops.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/new.dir
+# Target rules for target CMakeFiles/dpin.dir
 
 # All Build rule for target.
-CMakeFiles/new.dir/all: CMakeFiles/cpdp.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=9,10 "Built target new"
-.PHONY : CMakeFiles/new.dir/all
+CMakeFiles/dpin.dir/all: CMakeFiles/cpdp.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=10,11 "Built target dpin"
+.PHONY : CMakeFiles/dpin.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/new.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 8
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/new.dir/all
+CMakeFiles/dpin.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 9
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/dpin.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 0
-.PHONY : CMakeFiles/new.dir/rule
+.PHONY : CMakeFiles/dpin.dir/rule
 
 # Convenience name for target.
-new: CMakeFiles/new.dir/rule
-.PHONY : new
+dpin: CMakeFiles/dpin.dir/rule
+.PHONY : dpin
 
 # clean rule for target.
-CMakeFiles/new.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/clean
-.PHONY : CMakeFiles/new.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/cns.dir
-
-# All Build rule for target.
-CMakeFiles/cns.dir/all: CMakeFiles/cpdp.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=1,2 "Built target cns"
-.PHONY : CMakeFiles/cns.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/cns.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 8
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/cns.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/jh/code/JHPC/build/CMakeFiles 0
-.PHONY : CMakeFiles/cns.dir/rule
-
-# Convenience name for target.
-cns: CMakeFiles/cns.dir/rule
-.PHONY : cns
-
-# clean rule for target.
-CMakeFiles/cns.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/clean
-.PHONY : CMakeFiles/cns.dir/clean
+CMakeFiles/dpin.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/clean
+.PHONY : CMakeFiles/dpin.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

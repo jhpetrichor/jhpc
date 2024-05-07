@@ -63,8 +63,8 @@
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test">
-				<Option output="/home/jh/code/JHPC/bin/test" prefix_auto="0" extension_auto="0"/>
+			<Target title="bops">
+				<Option output="/home/jh/code/JHPC/bin/bops" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/jh/code/JHPC/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -80,14 +80,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 test"/>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 bops"/>
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="test/fast">
-				<Option output="/home/jh/code/JHPC/bin/test" prefix_auto="0" extension_auto="0"/>
+			<Target title="bops/fast">
+				<Option output="/home/jh/code/JHPC/bin/bops" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/jh/code/JHPC/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -103,14 +103,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 test/fast"/>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 bops/fast"/>
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="new">
-				<Option output="/home/jh/code/JHPC/bin/new" prefix_auto="0" extension_auto="0"/>
+			<Target title="dpin">
+				<Option output="/home/jh/code/JHPC/bin/dpin" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/jh/code/JHPC/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -126,14 +126,14 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 new"/>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 dpin"/>
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="new/fast">
-				<Option output="/home/jh/code/JHPC/bin/new" prefix_auto="0" extension_auto="0"/>
+			<Target title="dpin/fast">
+				<Option output="/home/jh/code/JHPC/bin/dpin" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="/home/jh/code/JHPC/bin"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -149,53 +149,7 @@
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 new/fast"/>
-					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="cns">
-				<Option output="/home/jh/code/JHPC/bin/cns" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/jh/code/JHPC/bin"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/jh/code/JHPC/include"/>
-					<Add directory="/usr/include/c++/11"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
-					<Add directory="/usr/include/c++/11/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 cns"/>
-					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-				</MakeCommands>
-			</Target>
-			<Target title="cns/fast">
-				<Option output="/home/jh/code/JHPC/bin/cns" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/home/jh/code/JHPC/bin"/>
-				<Option object_output="./"/>
-				<Option type="1"/>
-				<Option compiler="gcc"/>
-				<Compiler>
-					<Add directory="/home/jh/code/JHPC/include"/>
-					<Add directory="/usr/include/c++/11"/>
-					<Add directory="/usr/include/x86_64-linux-gnu/c++/11"/>
-					<Add directory="/usr/include/c++/11/backward"/>
-					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/11/include"/>
-					<Add directory="/usr/local/include"/>
-					<Add directory="/usr/include/x86_64-linux-gnu"/>
-					<Add directory="/usr/include"/>
-				</Compiler>
-				<MakeCommands>
-					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 cns/fast"/>
+					<Build command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 dpin/fast"/>
 					<CompileFile command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="/usr/bin/gmake -j20 -f &quot;/home/jh/code/JHPC/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -222,13 +176,19 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/jh/code/JHPC/src/cns.cpp">
-			<Option target="cns"/>
+		<Unit filename="/home/jh/code/JHPC/src/bops.cpp">
+			<Option target="bops"/>
+		</Unit>
+		<Unit filename="/home/jh/code/JHPC/src/dpin.cpp">
+			<Option target="dpin"/>
 		</Unit>
 		<Unit filename="/home/jh/code/JHPC/src/lib/bio_information.cpp">
 			<Option target="cpdp"/>
 		</Unit>
 		<Unit filename="/home/jh/code/JHPC/src/lib/dag.cpp">
+			<Option target="cpdp"/>
+		</Unit>
+		<Unit filename="/home/jh/code/JHPC/src/lib/evaluate.cpp">
 			<Option target="cpdp"/>
 		</Unit>
 		<Unit filename="/home/jh/code/JHPC/src/lib/gene_express.cpp">
@@ -239,12 +199,6 @@
 		</Unit>
 		<Unit filename="/home/jh/code/JHPC/src/lib/ungraph.cpp">
 			<Option target="cpdp"/>
-		</Unit>
-		<Unit filename="/home/jh/code/JHPC/src/new.cpp">
-			<Option target="new"/>
-		</Unit>
-		<Unit filename="/home/jh/code/JHPC/src/test.cpp">
-			<Option target="test"/>
 		</Unit>
 		<Unit filename="/home/jh/code/JHPC/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

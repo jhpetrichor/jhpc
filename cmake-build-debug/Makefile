@@ -130,67 +130,78 @@ cpdp/fast:
 .PHONY : cpdp/fast
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named bops
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
+bops: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bops
+.PHONY : bops
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
+bops/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/build
+.PHONY : bops/fast
 
 #=============================================================================
-# Target rules for targets named new
+# Target rules for targets named dpin
 
 # Build rule for target.
-new: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 new
-.PHONY : new
+dpin: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dpin
+.PHONY : dpin
 
 # fast build rule for target.
-new/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/build
-.PHONY : new/fast
+dpin/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/build
+.PHONY : dpin/fast
 
-#=============================================================================
-# Target rules for targets named cns
-
-# Build rule for target.
-cns: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cns
-.PHONY : cns
-
-# fast build rule for target.
-cns/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/build
-.PHONY : cns/fast
-
-src/cns.o: src/cns.cpp.o
-.PHONY : src/cns.o
+src/bops.o: src/bops.cpp.o
+.PHONY : src/bops.o
 
 # target to build an object file
-src/cns.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.o
-.PHONY : src/cns.cpp.o
+src/bops.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.o
+.PHONY : src/bops.cpp.o
 
-src/cns.i: src/cns.cpp.i
-.PHONY : src/cns.i
+src/bops.i: src/bops.cpp.i
+.PHONY : src/bops.i
 
 # target to preprocess a source file
-src/cns.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.i
-.PHONY : src/cns.cpp.i
+src/bops.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.i
+.PHONY : src/bops.cpp.i
 
-src/cns.s: src/cns.cpp.s
-.PHONY : src/cns.s
+src/bops.s: src/bops.cpp.s
+.PHONY : src/bops.s
 
 # target to generate assembly for a file
-src/cns.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.s
-.PHONY : src/cns.cpp.s
+src/bops.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.s
+.PHONY : src/bops.cpp.s
+
+src/dpin.o: src/dpin.cpp.o
+.PHONY : src/dpin.o
+
+# target to build an object file
+src/dpin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.o
+.PHONY : src/dpin.cpp.o
+
+src/dpin.i: src/dpin.cpp.i
+.PHONY : src/dpin.i
+
+# target to preprocess a source file
+src/dpin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.i
+.PHONY : src/dpin.cpp.i
+
+src/dpin.s: src/dpin.cpp.s
+.PHONY : src/dpin.s
+
+# target to generate assembly for a file
+src/dpin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.s
+.PHONY : src/dpin.cpp.s
 
 src/lib/bio_information.o: src/lib/bio_information.cpp.o
 .PHONY : src/lib/bio_information.o
@@ -239,6 +250,30 @@ src/lib/dag.s: src/lib/dag.cpp.s
 src/lib/dag.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/dag.cpp.s
 .PHONY : src/lib/dag.cpp.s
+
+src/lib/evaluate.o: src/lib/evaluate.cpp.o
+.PHONY : src/lib/evaluate.o
+
+# target to build an object file
+src/lib/evaluate.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o
+.PHONY : src/lib/evaluate.cpp.o
+
+src/lib/evaluate.i: src/lib/evaluate.cpp.i
+.PHONY : src/lib/evaluate.i
+
+# target to preprocess a source file
+src/lib/evaluate.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i
+.PHONY : src/lib/evaluate.cpp.i
+
+src/lib/evaluate.s: src/lib/evaluate.cpp.s
+.PHONY : src/lib/evaluate.s
+
+# target to generate assembly for a file
+src/lib/evaluate.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s
+.PHONY : src/lib/evaluate.cpp.s
 
 src/lib/gene_express.o: src/lib/gene_express.cpp.o
 .PHONY : src/lib/gene_express.o
@@ -312,54 +347,6 @@ src/lib/ungraph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s
 .PHONY : src/lib/ungraph.cpp.s
 
-src/new.o: src/new.cpp.o
-.PHONY : src/new.o
-
-# target to build an object file
-src/new.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/src/new.cpp.o
-.PHONY : src/new.cpp.o
-
-src/new.i: src/new.cpp.i
-.PHONY : src/new.i
-
-# target to preprocess a source file
-src/new.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/src/new.cpp.i
-.PHONY : src/new.cpp.i
-
-src/new.s: src/new.cpp.s
-.PHONY : src/new.s
-
-# target to generate assembly for a file
-src/new.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/new.dir/build.make CMakeFiles/new.dir/src/new.cpp.s
-.PHONY : src/new.cpp.s
-
-src/test.o: src/test.cpp.o
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
-
-src/test.i: src/test.cpp.i
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
-
-src/test.s: src/test.cpp.s
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -368,19 +355,24 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... cns"
+	@echo "... bops"
 	@echo "... cpdp"
-	@echo "... new"
-	@echo "... test"
-	@echo "... src/cns.o"
-	@echo "... src/cns.i"
-	@echo "... src/cns.s"
+	@echo "... dpin"
+	@echo "... src/bops.o"
+	@echo "... src/bops.i"
+	@echo "... src/bops.s"
+	@echo "... src/dpin.o"
+	@echo "... src/dpin.i"
+	@echo "... src/dpin.s"
 	@echo "... src/lib/bio_information.o"
 	@echo "... src/lib/bio_information.i"
 	@echo "... src/lib/bio_information.s"
 	@echo "... src/lib/dag.o"
 	@echo "... src/lib/dag.i"
 	@echo "... src/lib/dag.s"
+	@echo "... src/lib/evaluate.o"
+	@echo "... src/lib/evaluate.i"
+	@echo "... src/lib/evaluate.s"
 	@echo "... src/lib/gene_express.o"
 	@echo "... src/lib/gene_express.i"
 	@echo "... src/lib/gene_express.s"
@@ -390,12 +382,6 @@ help:
 	@echo "... src/lib/ungraph.o"
 	@echo "... src/lib/ungraph.i"
 	@echo "... src/lib/ungraph.s"
-	@echo "... src/new.o"
-	@echo "... src/new.i"
-	@echo "... src/new.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
 .PHONY : help
 
 

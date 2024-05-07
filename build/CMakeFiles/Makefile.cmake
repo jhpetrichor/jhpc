@@ -44,7 +44,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/cpdp.dir/DependInfo.cmake"
-  "CMakeFiles/test.dir/DependInfo.cmake"
-  "CMakeFiles/new.dir/DependInfo.cmake"
-  "CMakeFiles/cns.dir/DependInfo.cmake"
+  "CMakeFiles/bops.dir/DependInfo.cmake"
+  "CMakeFiles/dpin.dir/DependInfo.cmake"
   )

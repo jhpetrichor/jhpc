@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-04 21:26:51
+ * @LastEditTime: 2024-05-07 19:38:53
  */
 #ifndef __DAG_H__
 #define __DAG_H__
@@ -69,7 +69,6 @@ public:
     double get_similarity_protein(const set<string>& gos1, const set<string>& gos2);
 private:
     double similarity(int, int);
-    // 定义go --> gos的相似性
 };
 
 #endif // __DAG_H__
