@@ -2,7 +2,7 @@
  * @brief: 
  * @Author: jh
  * @Date: 2024-05-06 16:00:21
- * @LastEditTime: 2024-05-07 16:03:48
+ * @LastEditTime: 2024-05-08 17:18:14
  */
 #include "bio_information.h"
 #include "config.h"
@@ -19,6 +19,7 @@ void display(string& ppi_file, string& result_file) {
     printf("ppi_file: %s\n", ppi_file.c_str());
     printf("result_file: %s\n", ppi_file.c_str());
 }
+
 
 int main() {
     string ppi_file = COLLINS_PPI;
@@ -42,24 +43,18 @@ int main() {
     vector<UnGraph> splitted_ppi;
     while(!queue_ppi.empty()) {
         UnGraph::split_graph(queue_ppi, splitted_ppi, bio, dag);
-    }
+    }                    
     std::cout << splitted_ppi.size() << std::endl;
 
     vector<set<string>> complexes;
     for(auto& sg: splitted_ppi) {
         vector<set<string>> temp_complexes;
-        UnGraph::get_complexes(sg, temp_complexes, 0.45);
+        UnGraph::get_complexes(g, sg, temp_complexes, 0.45);
         complexes.insert(complexes.end(), temp_complexes.begin(), temp_complexes.end());
         std::cout << complexes.size() << endl;
     }
     sort(complexes.begin(), complexes.end(), Complex::CompareSetBySize);
     
-    // cout << "last" << endl;
-    // vector<set<string>> result;
-    // for(auto& c: complexes) {
-    //     Complex::update_complexes(result, c);
-    // }
-
     Complex::write_complex_to_file(complexes, result_file);
 
     return 0;

@@ -2,7 +2,7 @@
  * @brief: 
  * @Author: jh
  * @Date: 2024-05-06 13:23:07
- * @LastEditTime: 2024-05-07 22:06:54
+ * @LastEditTime: 2024-05-09 15:50:00
  */
 #include "ungraph.h"
 #include "config.h"
@@ -188,50 +188,6 @@ UnGraph::~UnGraph() {
     Edge2ID.clear();
 }
 
-void UnGraph::read_go_protein(string& file_path, const set<string>& protein_set) {
-    fstream file(file_path);
-    if(!file.is_open()) {
-        cerr << "<ERROR>: Faile to open file! " << file_path << endl;
-    }
-    string line;
-    while(getline(file, line)) {
-        istringstream iss(line);
-        string protein;
-        iss >> protein;
-        if(protein_set.count(protein) == 0) {
-            continue;
-        } 
-        string go;
-        while(iss >> go) {
-            protein_go[protein].insert(go);
-            go_protein[go].insert(protein);
-        }
-    }
-    file.close();
-}
-
-double UnGraph::calculate_p_value(UnGraph& g, set<string> &complex) {
-    /* protein_go: 每一个蛋白石与go的对应
-     * go-protein: 每一条go对应的蛋白质
-     */   
-    double p_value = 1.0;
-    if(protein_go.empty() || go_protein.empty()) {
-        string file_path = PROTEIN_GO_FILE;
-        read_go_protein(file_path, g.proteins_name);
-    }
-    double N_C = static_cast<double>(tgamma(g.proteins.size() + 1) / \
-    (tgamma(complex.size() + 1) * tgamma(g.proteins.size() - complex.size() + 1)));
-    set<string> gos;
-    for(auto& protein: complex) {
-        auto it = protein_go.find(protein);
-        if(it == protein_go.end()) {
-            continue;
-        }
-        gos.insert(it->second.begin(), it->second.end());
-    }
-    
-}
-
 void UnGraph::display() const {
     cout << "protein_name_id: " << endl;
     for(auto& it: protein_name_id) {
@@ -268,7 +224,7 @@ void UnGraph::display() const {
 void UnGraph::read_edge_list(string& file_path, set<string>& proeins_list, vector<string>& edge_list) {
     fstream file(file_path);
     if(!file.is_open()) {
-        cout << "Failed to open file! " << file_path;
+        cout << "Failed to open file! " << file_path << endl;
         exit(1);
     }
     string line;
@@ -286,7 +242,7 @@ void UnGraph::read_edge_list(string& file_path, set<string>& proeins_list, vecto
 void UnGraph::read_edge_list_with_weight(string& file_path, set<string>& proeins_list, vector<string>& edge_list, vector<double>& edge_weight) {
     fstream file(file_path);
     if(!file.is_open()) {
-        cout << "Failed to open file! " << file_path;
+        cout << "Failed to open file! " << file_path << endl;
         exit(1);
     }
     string line;
@@ -523,8 +479,7 @@ int UnGraph::find_parent(int protein, map<int, int>& parent) {
     return root;
 }
 
-int getfa1(int x,int fa[])
-{//This is a data structure, called Disjoint Set Union to check if two proteins are in the same set
+int getfa1(int x,int fa[]) {
     int a = x;
     while (x != fa[x]) 
 	{
@@ -549,6 +504,12 @@ void UnGraph::split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_pp
         }
         return;
     }
+    
+    current_ppi.weight_by_go_term(bio, dag);
+    for(auto& e: current_ppi.edges) {
+        e->balanced_weight += e->node_a->jaccard_similarity(e->node_b);
+    }
+
 
     int count = 0, location = -1;
     // map<int, int> parent;
@@ -606,7 +567,7 @@ void UnGraph::split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_pp
         UnGraph new_ppi(move(new_protein_set), move(new_edge_list));
         // 添加同质性指数
         // for(auto& e: new_ppi.edges) {
-        //     e->balanced_weight += e->node_a->jaccard_similarity(e->node_b);\
+        //     e->weight += e->node_a->jaccard_similarity(e->node_b);
         // }
         // new_ppi.weight_by_go_term(bio, dag);
         // new_ppi.calculate_balanced_weight();
@@ -615,94 +576,7 @@ void UnGraph::split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_pp
 
 }
 
-// void UnGraph::split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag) {
-//     UnGraph current_ppi = ppi_queue.front();
-//     ppi_queue.pop();
-
-//     if(current_ppi.proteins.size() <= COMPLEX_MAX_SIZE) {
-//         if(current_ppi.proteins.size() >= 3) {
-//             splited_ppi.emplace_back(move(current_ppi));
-//         }
-//         return;
-//     }
-
-//     int count = 0, location = -1;
-//     map<int, int> parent;
-//     for(auto& p: current_ppi.ID2Protein) {
-//         parent.insert(make_pair(p->id, p->id));
-//     }
-//     // 从小大到排列
-//     sort(current_ppi.edges.begin(), current_ppi.edges.end(), Edge::CompareByBalancedWeight);
-//     // for(auto& e: current_ppi.edges) {
-//     //     e->display();
-//     // }
-//     // exit(1);
-    
-//     for(auto& e: current_ppi.edges) {
-//         // e->display();
-//         // 连边的权值太小，或者添加边的数量满足要求，完成加边操作
-//         if(count == current_ppi.proteins.size() - 2 || e->balanced_weight < 0.00001) {
-//             break;
-//         }
-//         if(UnGraph::find_parent(e->node_a->id, parent) == UnGraph::find_parent(e->node_b->id,  parent)) {
-//             continue;
-//         }
-//         parent[find_parent(e->node_a->id, parent)] = find_parent(e->node_b->id, parent);
-//         count += 1;
-//     }
-
-//     while(true) {
-//         bool success = false;
-//         set<string> new_protein_set;
-//         vector<string> new_edge_list;
-//         for(int i = location + 1; i < current_ppi.ID2Protein.size(); ++i) {
-//             assert(i == current_ppi.ID2Protein[i]->id);
-//             if(find_parent(i, parent) == current_ppi.ID2Protein[i]->id) {
-//                 location = i;
-//                 success = true;
-//                 break;
-//             }
-//         }
-//         if(!success) {
-//             break;
-//         }
-//         // add new protein_name
-//         for(int i = 0; i < current_ppi.ID2Protein.size(); ++i) {
-//             if(find_parent(current_ppi.ID2Protein[i]->id, parent) == current_ppi.ID2Protein[location]->id) {
-//                 new_protein_set.insert(current_ppi.ID2Protein[i]->protein_name);
-//             }
-//         }
-//         // add new edge_list;
-//         vector<double> edge_weight;
-//         for(auto& e: current_ppi.edges) {
-//             if(new_protein_set.count(e->node_a->protein_name) && new_protein_set.count(e->node_b->protein_name)) {
-//                 new_edge_list.emplace_back(e->node_a->protein_name);
-//                 new_edge_list.emplace_back(e->node_b->protein_name);
-//                 edge_weight.emplace_back(e->balanced_weight);
-//             }
-//         }
-//         if(new_protein_set.size() < 3) continue;
-//         UnGraph new_ppi(move(new_protein_set), move(new_edge_list));
-//         // 添加同质性指数
-//         // for(auto& e: new_ppi.edges) {
-//         //     e->balanced_weight += e->node_a->jaccard_similarity(e->node_b);\
-//         // }
-//         // new_ppi.weight_by_go_term(bio, dag);
-//         // new_ppi.calculate_balanced_weight();
-//         ppi_queue.push(move(new_ppi));
-//     }
-// }
-
-void UnGraph::get_complexes(UnGraph& g, vector<set<string>>& complexes, double similarity_threshold) {
-    // if(static_cast<double>(g.edges.size() * 2) / static_cast<double>(g.proteins.size() * (g.proteins.size() - 1)) >= 0.8    ) {
-    //     set<string> complex;
-    //     for(auto& p: g.proteins) {
-    //         complex.insert(p->protein_name);
-    //     }
-    //     complexes.emplace_back(complex);
-    //     return;
-    // }
-    // g.display();
+void UnGraph::get_complexes(UnGraph& origin_ppi, UnGraph& g, vector<set<string>>& complexes, double similarity_threshold) {
     if(g.proteins.empty()) return;
     map<int, bool> complex_record;
     queue<int> complex_queue;
@@ -747,7 +621,9 @@ void UnGraph::get_complexes(UnGraph& g, vector<set<string>>& complexes, double s
         if(complex.size() >= 3) {
             // Complex c(g, move(complex));
             // complex_result.insert(complex_result.end(), move(c));
-            complex_result.emplace_back(move(complex));
+            if(Complex::evaluate_by_weight(origin_ppi, complex)) {
+                complex_result.emplace_back(move(complex));
+            }
         }
         ++it;
     }
@@ -958,4 +834,151 @@ void Complex::update_complexes(vector<set<string>>& complexes, set<string>& comp
         }
     }
     complexes.emplace_back(move(complex));
+}
+
+bool Complex::evaluate_by_weight(UnGraph& g, set<string>& complex) {
+    double weight_in = 0.0;
+    double weight_out = 0.0;
+    for(auto it_p = complex.begin(); it_p != complex.end(); ++it_p) {
+        auto p_ptr = g.ID2Protein[g.protein_name_id[*it_p]];
+        for(auto& nei: p_ptr->neighbor) {
+            auto e = g.getEdge(p_ptr, nei);
+            if(e == nullptr) {
+                continue;
+            }
+            if(complex.count(nei->protein_name)) {
+                weight_in += e->balanced_weight;
+            } else {
+                weight_out += e->balanced_weight;
+            }
+        }
+    }
+    return weight_in * 2.2 >= weight_out;
+}
+
+
+void UnGraph::split_graph1(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag) {
+    UnGraph current_ppi = ppi_queue.front();
+    ppi_queue.pop();
+
+    if(current_ppi.proteins.size() <= COMPLEX_MAX_SIZE) {
+        if(current_ppi.proteins.size() >= 3) {
+            splited_ppi.emplace_back(move(current_ppi));
+        }
+        return;
+    }
+
+    int count = 0;
+    int fa[current_ppi.proteins.size()];
+    for(auto& p: current_ppi.proteins) {
+        fa[p->id] = p->id;
+    }
+
+    // 从小大到排列
+    sort(current_ppi.edges.begin(), current_ppi.edges.end(), Edge::CompareByBalancedWeight);
+    std::reverse(current_ppi.edges.begin(), current_ppi.edges.end());
+    for(auto& e: current_ppi.edges) {
+        if(getfa1(e->node_a->id, fa) == getfa1(e->node_b->id, fa)) {
+            continue;
+        }
+        fa[getfa1(e->node_a->id, fa)] = getfa1(e->node_b->id, fa);
+        count += 1;
+        if(count + 2 == current_ppi.proteins.size()) {
+            break;
+        }
+    }
+
+    set<ProteinPtr>::iterator location;
+    while(true) {
+        bool success = false;
+        set<string> new_protein_set;
+        vector<string> new_edge_list;
+        vector<double> edge_weight;
+        for(auto it = current_ppi.proteins.begin(); it != current_ppi.proteins.end(); ++it) {
+            if(getfa1((*it)->id, fa) == (*it)->id) {
+                location = it; 
+                success = true;
+                break;
+            }
+        }
+        if(!success) {
+            break;
+        }
+        // add new protein_name
+        for(auto it = current_ppi.proteins.begin(); it != current_ppi.proteins.end(); ++it) {
+            if(getfa1((*it)->id, fa) == (*location)->id) {
+                new_protein_set.insert((*it)->protein_name);
+            }
+        }
+        // add new edge_list;
+        for(auto& e: current_ppi.edges) {
+            if(new_protein_set.count(e->node_a->protein_name) && 
+                    new_protein_set.count(e->node_b->protein_name)) {
+                
+                new_edge_list.emplace_back(e->node_a->protein_name);
+                new_edge_list.emplace_back(e->node_b->protein_name);
+                edge_weight.emplace_back(e->balanced_weight);
+            }
+        }
+        UnGraph new_ppi(move(new_protein_set), move(new_edge_list), move(edge_weight));
+        ppi_queue.push(move(new_ppi));
+    }
+}
+
+void UnGraph::get_complexes1(UnGraph& origin_ppi, UnGraph& g, vector<set<string>>& complexes, double similarity_threshold) {
+    if(g.proteins.empty()) return;
+    map<int, bool> complex_record;
+    queue<int> complex_queue;
+
+    for(auto& protein: g.ID2Protein) {
+        complex_queue.push(1 << protein->id);
+        complex_record[1 << protein->id] = true;
+    }
+
+    while(!complex_queue.empty()) {
+        int complex_state = complex_queue.front();
+        complex_queue.pop();
+        for(int i = 0; i < g.ID2Protein.size(); ++i) {
+            if((complex_state & (1 << i)) == 0) {
+                continue;
+            }
+            for(int j = 0; j < g.ID2Protein.size(); ++j) {
+                if(!g.connected[i][j]) {
+                    continue;
+                }
+                if((complex_state & (1 << j)) != 0) {
+                    continue;
+                }
+                if(complex_record.count(complex_state | (1 << j)) != 0) {
+                    continue;
+                }
+                complex_record[complex_state | (1 << j)] = true;
+                complex_queue.push(complex_state | (1 << j));
+            }
+        }
+    }
+    set<string> complex;
+    auto it = complex_record.begin();
+    vector<set<string>> complex_result;
+    while(it != complex_record.end()) {
+        complex.clear();
+        for(int i = 0; i < g.ID2Protein.size(); ++i) {
+            if((it->first & (1 << i)) != 0) {
+                complex.insert(g.ID2Protein[i]->protein_name);
+            }
+        }
+        if(complex.size() >= 3) {
+            if(Complex::evaluate_by_weight(origin_ppi, complex)) {
+                complex_result.emplace_back(move(complex));
+            }
+        }
+        ++it;
+    }
+    if(complex_result.empty()) {
+        return;
+    }
+    sort(complexes.begin(), complexes.end(), Complex::CompareSetBySize);
+    for(auto& c: complex_result) {
+        Complex::update_complexes(complexes, c);
+    }
 }

@@ -2,8 +2,8 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditors: wuyue.nan
- * @LastEditTime: 2024-05-01 18:09:54
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2024-05-09 16:04:49
  */
 #include "dag.h"
 
@@ -29,7 +29,6 @@ void Node::print() const {
 DAG::DAG() {
     set<string> go_terms;
     read_all_go_terms(PATH_GO_TERMS, go_terms);
-    cout << "go_terms.size " << go_terms.size() << endl;
     nodes.resize(go_terms.size() + 1);
     // 初始化节点
     int idx = 1;

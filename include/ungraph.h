@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-07 21:08:04
+ * @LastEditTime: 2024-05-09 15:33:39
  */
 
 #ifndef COMPLEX_PREDICT_UNGRAPH_H
@@ -68,8 +68,6 @@ public:
 
 class UnGraph {
 public:
-    static map<string, set<string>> go_protein;
-    static map<string, set<string>> protein_go;
     vector<ProteinPtr> ID2Protein;
     map<ProteinPtr, int> Protein2ID;
     map<string, int> protein_name_id;
@@ -88,13 +86,13 @@ public:
     /**
      * @description: 从节点和连边列表创建图
      * @param {&&} set_proteins: 蛋白质列表
-     * @param {&&}  list_edges: PPI连边列表 每相邻两个蛋白质为一组边 [0, 1] [2, 3]
+     * @param {&&}  list_edges: PPI连边列表 每相邻两个蛋白质为一组边 [0, 1] [2, 3]，
+     *              list_edges默认为空，即为无权重网络
      */    
     UnGraph(set<string>&& set_proteins, vector<string>&& list_edges, vector<double>&& edge_weight = vector<double>());
-    UnGraph() = default;
+    UnGraph() =  default;
     ~UnGraph();
     void display() const;
-    static void read_go_protein(string& file_path, const set<string>& protein_set);
     /**
      * @brief: 计算蛋白质复合物的p-value， 一般而言p-value越小，则越具有生物学意义，通常取value <= 0.01
      * @param {UnGraph&} g
@@ -104,11 +102,6 @@ public:
     EdgePtr getEdge(const ProteinPtr& protein1, const ProteinPtr& protein2);
     double agglomeration_coefficient(const vector<ProteinPtr>& nodes);
     void weight_by_go_term(BioInformation& bio, DAG& dag);
-    // void SortEdgesByWeight(vector<EdgePtr>& edges) {
-    //     sort(edges.begin(), edges.end(), [this](const EdgePtr& edge1, const EdgePtr& edge2) {
-    //         return Edge::CompareEdgesByWeight(edge1, edge2);
-    //     });
-    // }
 
     // ewca 相关算法
     __attribute__((unused)) void calculate_structure_similarty(vector<vector<double>>&) const;
@@ -135,7 +128,7 @@ public:
     void calculate_balanced_weight();
     static int find_parent(int protein, map<int, int>& parent);
     static void split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag);
-    static void get_complexes(UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
+    static void get_complexes(UnGraph& origin_ppi, UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
     static void get_complexes1(UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
 
     /**
@@ -144,6 +137,10 @@ public:
      */
     vector<double> calculate_protein_weight() const;
     void write_to_file(const string& file_path) const;
+
+
+    static void split_graph1(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag);
+    static void get_complexes1(UnGraph& origin_ppi, UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
 private:
     static void read_edge_list(string&, set<string>&, vector<string>&);
     static void read_edge_list_with_weight(string&, set<string>&, vector<string>&, vector<double>&);
@@ -168,6 +165,7 @@ public:
     static double calculate_cohesion(const UnGraph& g, set<string>& _proteins);
     static void update_complexes(vector<Complex>& complexes, Complex& complex);
     static void update_complexes(vector<set<string>>& complexes, set<string>& complex);
+    static bool evaluate_by_weight(UnGraph& g, set<string>& complex);
     void display() const;
 };
 
