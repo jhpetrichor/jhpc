@@ -1,45 +1,45 @@
+/*
+ * @brief: 
+ * @Author: jh
+ * @Date: 2024-05-06 13:23:07
+ * @LastEditTime: 2024-05-28 14:18:10
+ */
+#include <cstdio>
 #include <iostream>
 #include <set>
 #include <fstream>
 #include <ostream>
 #include <sstream>
 #include <vector>
+#include <regex>
 
 using namespace std;
 
-void read_GO(string path, vector<vector<string>>& gos) {
-    fstream file(path);
+int main() {
+    std::fstream file("./part_of.txt");
     string line;
+    map<string, set<string>> child_ancestor;
+    
     while(getline(file, line)) {
-        vector<string> go;
         istringstream iss(line);
-        string item;
-        while(iss >> item) {
-            go.emplace_back(item);
-        }
-        if(go.size() > 1) {
-            gos.emplace_back(go);
+        string ancestor;
+        iss >> ancestor;
+        string child;
+        while(iss >> child) {
+            child_ancestor[child].insert(ancestor);
         }
     }
     file.close();
-}
 
-void write(string path, vector<vector<string>>& gos) {
-    ofstream file(path);
-    for(auto& go: gos) {
-        for(auto& item: go) {
-            file << item << "\t";
+    std::ofstream ofile("./part_of_child_ancestor.txt");
+    for(auto& it: child_ancestor) {
+        ofile << it.first << "\t";
+        for(auto& a: it.second) {
+            ofile << a << "\t";
         }
-        file << "\n";
+        ofile << endl;
     }
-    file.close();
-}
+    ofile.close();
 
-int main(int argc, char** argv) {
-    string in_path = argv[1];
-    string out_put = argv[2];
-    vector<vector<string>> gos;
-    read_GO(in_path, gos);
-    write(out_put, gos);
     return 0;
 }

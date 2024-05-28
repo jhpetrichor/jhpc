@@ -11,6 +11,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o.d"
   "CMakeFiles/cpdp.dir/src/lib/graph.cpp.o"
   "CMakeFiles/cpdp.dir/src/lib/graph.cpp.o.d"
+  "CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o"
+  "CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o.d"
   "CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
   "CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o.d"
 )

@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/test.dir/src/test.cpp.o -o ../bin/test   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 
+/usr/bin/c++ CMakeFiles/test.dir/src/test.cpp.o -o ../bin/test   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 

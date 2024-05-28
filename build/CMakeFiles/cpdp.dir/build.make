@@ -73,85 +73,99 @@ CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o: CMakeFiles/cpdp.dir/flags.mak
 CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o: ../src/lib/bio_information.cpp
 CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o -c /home/jh/code/JHPC/src/lib/bio_information.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o -c /home/jh/code/JHPC/src/lib/bio_information.cpp
 
 CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/bio_information.cpp > CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/bio_information.cpp > CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.i
 
 CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/bio_information.cpp -o CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/bio_information.cpp -o CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.s
 
 CMakeFiles/cpdp.dir/src/lib/dag.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/dag.cpp.o: ../src/lib/dag.cpp
 CMakeFiles/cpdp.dir/src/lib/dag.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/cpdp.dir/src/lib/dag.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/dag.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/dag.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/dag.cpp.o -c /home/jh/code/JHPC/src/lib/dag.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/dag.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/dag.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/dag.cpp.o -c /home/jh/code/JHPC/src/lib/dag.cpp
 
 CMakeFiles/cpdp.dir/src/lib/dag.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/dag.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/dag.cpp > CMakeFiles/cpdp.dir/src/lib/dag.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/dag.cpp > CMakeFiles/cpdp.dir/src/lib/dag.cpp.i
 
 CMakeFiles/cpdp.dir/src/lib/dag.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/dag.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/dag.cpp -o CMakeFiles/cpdp.dir/src/lib/dag.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/dag.cpp -o CMakeFiles/cpdp.dir/src/lib/dag.cpp.s
 
 CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o: ../src/lib/evaluate.cpp
 CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -c /home/jh/code/JHPC/src/lib/evaluate.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o -c /home/jh/code/JHPC/src/lib/evaluate.cpp
 
 CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/evaluate.cpp > CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/evaluate.cpp > CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.i
 
 CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/evaluate.cpp -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/evaluate.cpp -o CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.s
 
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o: ../src/lib/gene_express.cpp
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -c /home/jh/code/JHPC/src/lib/gene_express.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o -c /home/jh/code/JHPC/src/lib/gene_express.cpp
 
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/gene_express.cpp > CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/gene_express.cpp > CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.i
 
 CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/gene_express.cpp -o CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/gene_express.cpp -o CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.s
 
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.o: ../src/lib/graph.cpp
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/cpdp.dir/src/lib/graph.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/graph.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/graph.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/graph.cpp.o -c /home/jh/code/JHPC/src/lib/graph.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/graph.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/graph.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/graph.cpp.o -c /home/jh/code/JHPC/src/lib/graph.cpp
 
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/graph.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/graph.cpp > CMakeFiles/cpdp.dir/src/lib/graph.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/graph.cpp > CMakeFiles/cpdp.dir/src/lib/graph.cpp.i
 
 CMakeFiles/cpdp.dir/src/lib/graph.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/graph.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/graph.cpp -o CMakeFiles/cpdp.dir/src/lib/graph.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/graph.cpp -o CMakeFiles/cpdp.dir/src/lib/graph.cpp.s
+
+CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o: CMakeFiles/cpdp.dir/flags.make
+CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o: ../src/lib/subcellular.cpp
+CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o -c /home/jh/code/JHPC/src/lib/subcellular.cpp
+
+CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/subcellular.cpp > CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.i
+
+CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/subcellular.cpp -o CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.s
 
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o: CMakeFiles/cpdp.dir/flags.make
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o: ../src/lib/ungraph.cpp
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o: CMakeFiles/cpdp.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o -c /home/jh/code/JHPC/src/lib/ungraph.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o -MF CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o.d -o CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o -c /home/jh/code/JHPC/src/lib/ungraph.cpp
 
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/ungraph.cpp > CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/lib/ungraph.cpp > CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.i
 
 CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/ungraph.cpp -o CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/lib/ungraph.cpp -o CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s
 
 # Object files for target cpdp
 cpdp_OBJECTS = \
@@ -160,6 +174,7 @@ cpdp_OBJECTS = \
 "CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/graph.cpp.o" \
+"CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o" \
 "CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o"
 
 # External object files for target cpdp
@@ -170,10 +185,11 @@ cpdp_EXTERNAL_OBJECTS =
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/graph.cpp.o
+../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/build.make
 ../lib/libcpdp.so: CMakeFiles/cpdp.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX shared library ../lib/libcpdp.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX shared library ../lib/libcpdp.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cpdp.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

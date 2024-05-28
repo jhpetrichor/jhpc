@@ -1,0 +1,16 @@
+# ninja log v5
+1540	1607	1715675504589924106	../bin/cns	6e4ce2d1fb2ebc88
+3	720	1715675503701946603	CMakeFiles/cns.dir/src/cns.cpp.o	6454532b3a6743df
+1	439	1715675503421953710	CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o	5253fc6ffec903a0
+4	621	1715675503601949141	CMakeFiles/dpin.dir/src/dpin.cpp.o	460b067d41715f15
+1419	1539	1715675504517925929	../lib/libcpdp.so	b3cb313a15f10ce
+1539	1608	1715675504589924106	../bin/test	cd8264770b3749bd
+1	15	1715675502997964473	CMakeFiles/cpdp.dir/src/lib/evaluate.cpp.o	da31c3356bcd25b8
+4	835	1715675503813943761	CMakeFiles/bops.dir/src/bops.cpp.o	ca595bf00fdf958b
+1	714	1715675503693946806	CMakeFiles/cpdp.dir/src/lib/dag.cpp.o	a0e9feb9f23e1e19
+2	1419	1715675504397928967	CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o	9323f5221ea94167
+1540	1602	1715675504581924309	../bin/dpin	b6718f3cdaf61426
+3	686	1715675503665947517	CMakeFiles/test.dir/src/test.cpp.o	a78ce119701eaf0f
+1	840	1715675503821943558	CMakeFiles/cpdp.dir/src/lib/gene_express.cpp.o	83b942813c339966
+2	899	1715675503877942136	CMakeFiles/cpdp.dir/src/lib/graph.cpp.o	ba4fb8fa27233d56
+1540	1603	1715675504581924309	../bin/bops	23f2103531dd34d

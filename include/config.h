@@ -2,19 +2,23 @@
  * @brief: 
  * @Author: jh
  * @Date: 2024-05-06 13:24:02
- * @LastEditTime: 2024-05-07 20:58:07
+ * @LastEditTime: 2024-05-28 14:49:39
  */
 #ifndef __CONFIG_H__
 #define __CONFIG_H__
+#define ESSENTIAL_PROTEIN "/home/jh/code/JHPC/dataset/Yeast/essential_protein.txt"
 // Yeast
 // dag.h
-#define PATH_IS_A        "/home/jh/code/JHPC/dataset/Yeast/DAG/is_a.txt"
-#define PATH_PART_OF     "/home/jh/code/JHPC/dataset/Yeast/DAG/part_of.txt"
+#define IS_A_A2C        "/home/jh/code/JHPC/dataset/Yeast/DAG/is_a.txt"
+#define PART_OF_A2C     "/home/jh/code/JHPC/dataset/Yeast/DAG/part_of.txt"
 #define PATH_GO_TERMS    "/home/jh/code/JHPC/dataset/Yeast/DAG/go_term.txt"
-#define PROTEIN_GO_FILE  "/home/jh/code/JHPC/dataset/Yeast/DAG/protein-go.txt"
+
+#define IS_A_C2A        "/home/jh/code/JHPC/dataset/Yeast/DAG/is_a_child_ancestor.txt"
+#define PART_OF_C2A     "/home/jh/code/JHPC/dataset/Yeast/DAG/part_of_child_ancestor.txt"
+// #define PROTEIN_GO_FILE  "/home/jh/code/JHPC/dataset/Yeast/DAG/protein-go.txt"
 
 // go_information
-#define GO_SLIM          "/home/jh/code/JHPC/dataset/Yeast/DAG/protein-go.txt"
+#define GO_SLIM          "/home/jh/code/JHPC/dataset/Yeast/DAG/go-slim.txt"
 #define SUBCELLULAR      "/home/jh/code/JHPC/dataset/Yeast/DAG/subcellular.txt"
 #define GENE_EXPRESSION  "/home/jh/code/JHPC/dataset/Yeast/DAG/gene-expression.txt"
 

@@ -130,6 +130,32 @@ cpdp/fast:
 .PHONY : cpdp/fast
 
 #=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
+
+#=============================================================================
+# Target rules for targets named cns
+
+# Build rule for target.
+cns: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 cns
+.PHONY : cns
+
+# fast build rule for target.
+cns/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/build
+.PHONY : cns/fast
+
+#=============================================================================
 # Target rules for targets named bops
 
 # Build rule for target.
@@ -155,6 +181,19 @@ dpin/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/build
 .PHONY : dpin/fast
 
+#=============================================================================
+# Target rules for targets named spin
+
+# Build rule for target.
+spin: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 spin
+.PHONY : spin
+
+# fast build rule for target.
+spin/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/build
+.PHONY : spin/fast
+
 src/bops.o: src/bops.cpp.o
 .PHONY : src/bops.o
 
@@ -178,6 +217,30 @@ src/bops.s: src/bops.cpp.s
 src/bops.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.s
 .PHONY : src/bops.cpp.s
+
+src/cns.o: src/cns.cpp.o
+.PHONY : src/cns.o
+
+# target to build an object file
+src/cns.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.o
+.PHONY : src/cns.cpp.o
+
+src/cns.i: src/cns.cpp.i
+.PHONY : src/cns.i
+
+# target to preprocess a source file
+src/cns.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.i
+.PHONY : src/cns.cpp.i
+
+src/cns.s: src/cns.cpp.s
+.PHONY : src/cns.s
+
+# target to generate assembly for a file
+src/cns.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.s
+.PHONY : src/cns.cpp.s
 
 src/dpin.o: src/dpin.cpp.o
 .PHONY : src/dpin.o
@@ -323,6 +386,30 @@ src/lib/graph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/graph.cpp.s
 .PHONY : src/lib/graph.cpp.s
 
+src/lib/subcellular.o: src/lib/subcellular.cpp.o
+.PHONY : src/lib/subcellular.o
+
+# target to build an object file
+src/lib/subcellular.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o
+.PHONY : src/lib/subcellular.cpp.o
+
+src/lib/subcellular.i: src/lib/subcellular.cpp.i
+.PHONY : src/lib/subcellular.i
+
+# target to preprocess a source file
+src/lib/subcellular.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.i
+.PHONY : src/lib/subcellular.cpp.i
+
+src/lib/subcellular.s: src/lib/subcellular.cpp.s
+.PHONY : src/lib/subcellular.s
+
+# target to generate assembly for a file
+src/lib/subcellular.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.s
+.PHONY : src/lib/subcellular.cpp.s
+
 src/lib/ungraph.o: src/lib/ungraph.cpp.o
 .PHONY : src/lib/ungraph.o
 
@@ -347,6 +434,54 @@ src/lib/ungraph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s
 .PHONY : src/lib/ungraph.cpp.s
 
+src/spin.o: src/spin.cpp.o
+.PHONY : src/spin.o
+
+# target to build an object file
+src/spin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/src/spin.cpp.o
+.PHONY : src/spin.cpp.o
+
+src/spin.i: src/spin.cpp.i
+.PHONY : src/spin.i
+
+# target to preprocess a source file
+src/spin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/src/spin.cpp.i
+.PHONY : src/spin.cpp.i
+
+src/spin.s: src/spin.cpp.s
+.PHONY : src/spin.s
+
+# target to generate assembly for a file
+src/spin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/src/spin.cpp.s
+.PHONY : src/spin.cpp.s
+
+src/test.o: src/test.cpp.o
+.PHONY : src/test.o
+
+# target to build an object file
+src/test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.o
+.PHONY : src/test.cpp.o
+
+src/test.i: src/test.cpp.i
+.PHONY : src/test.i
+
+# target to preprocess a source file
+src/test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.i
+.PHONY : src/test.cpp.i
+
+src/test.s: src/test.cpp.s
+.PHONY : src/test.s
+
+# target to generate assembly for a file
+src/test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.s
+.PHONY : src/test.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -356,11 +491,17 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... bops"
+	@echo "... cns"
 	@echo "... cpdp"
 	@echo "... dpin"
+	@echo "... spin"
+	@echo "... test"
 	@echo "... src/bops.o"
 	@echo "... src/bops.i"
 	@echo "... src/bops.s"
+	@echo "... src/cns.o"
+	@echo "... src/cns.i"
+	@echo "... src/cns.s"
 	@echo "... src/dpin.o"
 	@echo "... src/dpin.i"
 	@echo "... src/dpin.s"
@@ -379,9 +520,18 @@ help:
 	@echo "... src/lib/graph.o"
 	@echo "... src/lib/graph.i"
 	@echo "... src/lib/graph.s"
+	@echo "... src/lib/subcellular.o"
+	@echo "... src/lib/subcellular.i"
+	@echo "... src/lib/subcellular.s"
 	@echo "... src/lib/ungraph.o"
 	@echo "... src/lib/ungraph.i"
 	@echo "... src/lib/ungraph.s"
+	@echo "... src/spin.o"
+	@echo "... src/spin.i"
+	@echo "... src/spin.s"
+	@echo "... src/test.o"
+	@echo "... src/test.i"
+	@echo "... src/test.s"
 .PHONY : help
 
 

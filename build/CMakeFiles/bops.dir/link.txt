@@ -1,1 +1,1 @@
-/usr/bin/g++ -g CMakeFiles/bops.dir/src/bops.cpp.o -o ../bin/bops   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 
+/usr/bin/c++ CMakeFiles/bops.dir/src/bops.cpp.o -o ../bin/bops   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 

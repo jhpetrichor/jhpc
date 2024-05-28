@@ -73,15 +73,15 @@ CMakeFiles/bops.dir/src/bops.cpp.o: CMakeFiles/bops.dir/flags.make
 CMakeFiles/bops.dir/src/bops.cpp.o: ../src/bops.cpp
 CMakeFiles/bops.dir/src/bops.cpp.o: CMakeFiles/bops.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/bops.dir/src/bops.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bops.dir/src/bops.cpp.o -MF CMakeFiles/bops.dir/src/bops.cpp.o.d -o CMakeFiles/bops.dir/src/bops.cpp.o -c /home/jh/code/JHPC/src/bops.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/bops.dir/src/bops.cpp.o -MF CMakeFiles/bops.dir/src/bops.cpp.o.d -o CMakeFiles/bops.dir/src/bops.cpp.o -c /home/jh/code/JHPC/src/bops.cpp
 
 CMakeFiles/bops.dir/src/bops.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/bops.dir/src/bops.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/bops.cpp > CMakeFiles/bops.dir/src/bops.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/bops.cpp > CMakeFiles/bops.dir/src/bops.cpp.i
 
 CMakeFiles/bops.dir/src/bops.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/bops.dir/src/bops.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/bops.cpp -o CMakeFiles/bops.dir/src/bops.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/bops.cpp -o CMakeFiles/bops.dir/src/bops.cpp.s
 
 # Object files for target bops
 bops_OBJECTS = \

@@ -2,20 +2,21 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-09 15:33:39
+ * @LastEditTime: 2024-05-28 17:12:24
  */
 
 #ifndef COMPLEX_PREDICT_UNGRAPH_H
 #define COMPLEX_PREDICT_UNGRAPH_H
 
-#include "bio_information.h"
 #include "dag.h"
 
+#include <iostream>
 #include <set>
 #include <map>
 #include <string>
 #include <vector>
 #include <memory>
+#include <queue>
 
 class Complex;
 class Protein;
@@ -36,13 +37,13 @@ public:
 
 public:
     Protein(int _id, string _protein_name, double _weight = 0.0);
-
+    void display()const;
     void add_neighbor(const ProteinPtr& protein);
 
     void remove_neighbor(const ProteinPtr& protein);
     double jaccard_similarity(const ProteinPtr& other) const;
+    double more_jaccard_similarity(const ProteinPtr& other) const;
     int degree() const;
-
     static bool ProteinCompareByWeight(const ProteinPtr& p1, const ProteinPtr& p2);
 };
 
@@ -55,7 +56,6 @@ public:
     ProteinPtr node_b;
     double weight;
     double balanced_weight;
-    double visited_count;   // 访问次数
 
     Edge(const ProteinPtr& node_a, const ProteinPtr& node_b,
         double _weight = 0.0, double _balanced_weight = 0.0, int _visited_count = 0);
@@ -68,6 +68,9 @@ public:
 
 class UnGraph {
 public:
+    static DAG child_ancestor;
+    static DAG ancestor_child;
+    static map<string, set<string>> protein_go;
     vector<ProteinPtr> ID2Protein;
     map<ProteinPtr, int> Protein2ID;
     map<string, int> protein_name_id;
@@ -101,7 +104,8 @@ public:
     static double calculate_p_value(UnGraph& g, set<string>& complex);
     EdgePtr getEdge(const ProteinPtr& protein1, const ProteinPtr& protein2);
     double agglomeration_coefficient(const vector<ProteinPtr>& nodes);
-    void weight_by_go_term(BioInformation& bio, DAG& dag);
+    void weight_by_go_term();
+    void clean_protein_weight();
 
     // ewca 相关算法
     __attribute__((unused)) void calculate_structure_similarty(vector<vector<double>>&) const;
@@ -127,19 +131,19 @@ public:
 //    static int get_fa(int fa[], int x);
     void calculate_balanced_weight();
     static int find_parent(int protein, map<int, int>& parent);
-    static void split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag);
+    static void split_graph(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi);
     static void get_complexes(UnGraph& origin_ppi, UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
     static void get_complexes1(UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
-
+    static map<string, set<string>> read_protein_go(string file_path);
     /**
      * @brief: 为节点添加权重。节点的权重是连边的权重之和
      * @return 返回节点的权重。节点 i 的权重存储在对应的下标位置
      */
     vector<double> calculate_protein_weight() const;
     void write_to_file(const string& file_path) const;
+    void normalize_edge_weight_min_max();
 
-
-    static void split_graph1(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi, BioInformation& bio, DAG& dag);
+    static void split_graph1(queue<UnGraph>& ppi_queue, vector<UnGraph>& splited_ppi);
     static void get_complexes1(UnGraph& origin_ppi, UnGraph& g, vector<set<string>>& complexes, double similarity_threshold);
 private:
     static void read_edge_list(string&, set<string>&, vector<string>&);
@@ -164,8 +168,9 @@ public:
     static void write_complex_to_file(set<set<string>>&, string& file_path);
     static double calculate_cohesion(const UnGraph& g, set<string>& _proteins);
     static void update_complexes(vector<Complex>& complexes, Complex& complex);
-    static void update_complexes(vector<set<string>>& complexes, set<string>& complex);
+    static void update_complexes(vector<set<string>>& complexes, set<string>& complex, double threshold = 0.45);
     static bool evaluate_by_weight(UnGraph& g, set<string>& complex);
+    static bool evaluate_by_density(UnGraph& g, set<string>& complex, double threshold = 0.50);
     void display() const;
 };
 

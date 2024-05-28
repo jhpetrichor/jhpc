@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/spin.dir/src/spin.cpp.o -o ../bin/spin   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 

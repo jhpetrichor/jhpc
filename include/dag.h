@@ -2,21 +2,15 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-07 19:38:53
+ * @LastEditTime: 2024-05-28 14:45:07
  */
 #ifndef __DAG_H__
 #define __DAG_H__
 
-#include "config.h"
-
-#include <iostream>
 #include <fstream>
-#include <sstream>
 #include <set>
 #include <map>
-#include <queue>
 #include <vector>
-#include <stack>
 #include <utility>
 #include <algorithm>
 
@@ -50,7 +44,7 @@ public:
 public:
     // 需要传入两个参数，第一个是用来初始化所有的GOterm
     // 并且固定所有的GOTerm对应的参数 
-    DAG();
+    DAG(string is_a, string part_of);
     ~DAG();
     Node* addNode(int id, string&);
     void addEdge(int, int, Relation);

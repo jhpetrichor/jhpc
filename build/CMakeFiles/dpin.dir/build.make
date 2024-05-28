@@ -73,15 +73,15 @@ CMakeFiles/dpin.dir/src/dpin.cpp.o: CMakeFiles/dpin.dir/flags.make
 CMakeFiles/dpin.dir/src/dpin.cpp.o: ../src/dpin.cpp
 CMakeFiles/dpin.dir/src/dpin.cpp.o: CMakeFiles/dpin.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/dpin.dir/src/dpin.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/dpin.dir/src/dpin.cpp.o -MF CMakeFiles/dpin.dir/src/dpin.cpp.o.d -o CMakeFiles/dpin.dir/src/dpin.cpp.o -c /home/jh/code/JHPC/src/dpin.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/dpin.dir/src/dpin.cpp.o -MF CMakeFiles/dpin.dir/src/dpin.cpp.o.d -o CMakeFiles/dpin.dir/src/dpin.cpp.o -c /home/jh/code/JHPC/src/dpin.cpp
 
 CMakeFiles/dpin.dir/src/dpin.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/dpin.dir/src/dpin.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/dpin.cpp > CMakeFiles/dpin.dir/src/dpin.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/dpin.cpp > CMakeFiles/dpin.dir/src/dpin.cpp.i
 
 CMakeFiles/dpin.dir/src/dpin.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/dpin.dir/src/dpin.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/dpin.cpp -o CMakeFiles/dpin.dir/src/dpin.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/dpin.cpp -o CMakeFiles/dpin.dir/src/dpin.cpp.s
 
 # Object files for target dpin
 dpin_OBJECTS = \

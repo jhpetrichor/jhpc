@@ -19,16 +19,12 @@ file(GLOB LIB_SOURCE ${SOURCE_DIR}/lib/*.cpp)
 add_library(cpdp SHARED ${LIB_SOURCE})
 
 # test
-# add_executable(test ${SOURCE_DIR}/test.cpp)
-# target_link_libraries(test cpdp)
-
-# # new
-# add_executable(new ${SOURCE_DIR}/new.cpp)
-# target_link_libraries(new cpdp)
+add_executable(test ${SOURCE_DIR}/test.cpp)
+target_link_libraries(test cpdp)
 
 # # cns
-# add_executable(cns ${SOURCE_DIR}/cns.cpp)
-# target_link_libraries(cns cpdp)
+add_executable(cns ${SOURCE_DIR}/cns.cpp)
+target_link_libraries(cns cpdp)
 
 # bops
 add_executable(bops ${SOURCE_DIR}/bops.cpp)
@@ -37,3 +33,7 @@ target_link_libraries(bops cpdp)
 # dpin
 add_executable(dpin ${SOURCE_DIR}/dpin.cpp)
 target_link_libraries(dpin cpdp)
+
+# spin
+add_executable(spin ${SOURCE_DIR}/spin.cpp)
+target_link_libraries(spin cpdp)

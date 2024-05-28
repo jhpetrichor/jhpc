@@ -73,15 +73,15 @@ CMakeFiles/cns.dir/src/cns.cpp.o: CMakeFiles/cns.dir/flags.make
 CMakeFiles/cns.dir/src/cns.cpp.o: ../src/cns.cpp
 CMakeFiles/cns.dir/src/cns.cpp.o: CMakeFiles/cns.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/jh/code/JHPC/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/cns.dir/src/cns.cpp.o"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cns.dir/src/cns.cpp.o -MF CMakeFiles/cns.dir/src/cns.cpp.o.d -o CMakeFiles/cns.dir/src/cns.cpp.o -c /home/jh/code/JHPC/src/cns.cpp
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/cns.dir/src/cns.cpp.o -MF CMakeFiles/cns.dir/src/cns.cpp.o.d -o CMakeFiles/cns.dir/src/cns.cpp.o -c /home/jh/code/JHPC/src/cns.cpp
 
 CMakeFiles/cns.dir/src/cns.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/cns.dir/src/cns.cpp.i"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/cns.cpp > CMakeFiles/cns.dir/src/cns.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/jh/code/JHPC/src/cns.cpp > CMakeFiles/cns.dir/src/cns.cpp.i
 
 CMakeFiles/cns.dir/src/cns.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/cns.dir/src/cns.cpp.s"
-	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/cns.cpp -o CMakeFiles/cns.dir/src/cns.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/jh/code/JHPC/src/cns.cpp -o CMakeFiles/cns.dir/src/cns.cpp.s
 
 # Object files for target cns
 cns_OBJECTS = \

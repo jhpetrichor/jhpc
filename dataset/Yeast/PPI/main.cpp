@@ -1,56 +1,95 @@
+/*
+ * @brief: 
+ * @Author: jh
+ * @Date: 2024-05-14 21:16:08
+ * @LastEditTime: 2024-05-14 22:16:55
+ */
 // 整理protein complex 数据集
 // 将CYC2008 和 sgd数据集合二为一
 // 删除大小为1的蛋白质复合物
+#include <cstdio>
 #include <iostream>
+#include <iterator>
 #include <set>
 #include <fstream>
 #include <sstream>
+#include <string>
 #include <vector>
 #include <algorithm>
 
 using namespace std;
 
-struct CompareSetSize {
-    bool operator()(set<basic_string<char>> set1, set<basic_string<char>> set2) const {
-        return set1.size() > set2.size();
+void read_protein(string file_path, set<string>& proteins) {
+    std::fstream file(file_path);
+    if(!file.is_open()) {
+        cerr << "Faile to open file! " << file_path << endl;
+        exit(1);
     }
-};
 
-
-void read_complex(string file_path, set<set<string>>& complexes) {
-    fstream file(file_path);
     string line;
     while(getline(file, line)) {
         istringstream iss(line);
-        set<string> complex;
         string protein;
         while(iss >> protein) {
-            complex.insert(protein);
+            proteins.insert(protein);
         }
-        if(complex.size() >= 2) complexes.insert(complex);
     }
     file.close();
 }
 
-void write_complex(string file_path, set<set<string>>& complexes) {
-    ofstream  file(file_path);
-    for(auto& complex: complexes) {
-        for(auto& protein: complex) {
-            file << protein << "\t";
-        }
-        file << endl;
+set<string> read_go_slim(string file_path) {
+    std::fstream file(file_path);
+    if(!file.is_open()) {
+        cerr << "Faile to open file! " << file_path << endl;
+        exit(1);
     }
+
+    set<string> proteins;
+
+    string line;
+    while(getline(file, line)) {
+        istringstream iss(line);
+        string protein;
+        iss >> protein;
+        proteins.insert(protein);
+    }
+    file.close();
+    return proteins;
 }
 
-int main(){
-    set<set<string>> complexes;
-    read_complex("./gavin.txt", complexes);
-    read_complex("./collins.txt", complexes);
-    read_complex("./krogan_core.txt", complexes);
-    read_complex("./krogan_extented.txt", complexes);
-//    std::vector<std::set<string>> sortedSets(complexes.begin(), complexes.end());
-//    std::sort(sortedSets.begin(), sortedSets.end(), CompareSetSize());
-    write_complex("./yeast_all.txt", complexes);
+void writet_to_file(string file_path, set<string>& proteins) {
+    std::ofstream file(file_path);
+    for(auto& p: proteins) {
+        file << p << "\n";
+    }
+    file.close();
+}
 
+int main() {
+    set<string> proteins;
+    read_protein("collins.txt", proteins);
+    read_protein("gavin.txt", proteins);
+    read_protein("krogan_core.txt", proteins);
+    read_protein("krogan_extended.txt", proteins);
+    read_protein("biogrid.txt", proteins);
+    read_protein("yeast_all.txt", proteins);
+    read_protein("original_dip.txt", proteins);
+    read_protein("original_krogan.txt", proteins);
+    read_protein("original_dip.txt", proteins);
+    read_protein("original_Gavin.txt", proteins);
+    read_protein("original_MIPS.txt", proteins);
+
+
+
+    std::cout << "proteins size: " << proteins.size() << endl;
+    auto exit_protein = read_go_slim("../DAG/go-slim.txt");
+    std::cout << "exit protein size: " << exit_protein.size() << endl;
+
+    set<string> no_exit;
+    std::set_difference(proteins.begin(), proteins.end(),
+                        exit_protein.begin(), exit_protein.end(), 
+                        std::inserter(no_exit, no_exit.begin()));
+    std::cout << "no_exit: " << no_exit.size() << endl;
+    writet_to_file("./no_exit.txt", no_exit);
     return 0;
 }
