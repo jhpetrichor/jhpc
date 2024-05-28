@@ -38,6 +38,8 @@ public:
     vector<UnGraph> build_KPIN(const UnGraph* g);
     vector<UnGraph> build_KPIN2(const UnGraph* g);
     vector<UnGraph> build_KPIN_min(const UnGraph* g);
+    vector<UnGraph> build_KPINN(const UnGraph* g);
+
     vector<UnGraph> build_dynamic_PPI(const UnGraph* g, DPIN_MEHTOD method = DPIN_MEHTOD::THREE_SIGMA);
 private:
     /**

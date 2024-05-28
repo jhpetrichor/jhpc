@@ -83,13 +83,19 @@ int main() {
 
     std::cout << "proteins size: " << proteins.size() << endl;
     auto exit_protein = read_go_slim("../DAG/go-slim.txt");
-    std::cout << "exit protein size: " << exit_protein.size() << endl;
+    auto exit_protein_expression = read_go_slim("../DAG/gene-expression.txt");
+    set<string> both_exit;
+    set_intersection(exit_protein.begin(), exit_protein.end(),
+                    exit_protein_expression.begin(), exit_protein_expression.end(),
+                    inserter(both_exit, both_exit.begin()));
+
+    std::cout << "exit protein size: " << both_exit.size() << endl;
 
     set<string> no_exit;
     std::set_difference(proteins.begin(), proteins.end(),
-                        exit_protein.begin(), exit_protein.end(), 
+                        both_exit.begin(), both_exit.end(), 
                         std::inserter(no_exit, no_exit.begin()));
     std::cout << "no_exit: " << no_exit.size() << endl;
-    writet_to_file("./no_exit.txt", no_exit);
+    writet_to_file("./no_exi1t.txt", no_exit);
     return 0;
 }

@@ -37,3 +37,6 @@ target_link_libraries(dpin cpdp)
 # spin
 add_executable(spin ${SOURCE_DIR}/spin.cpp)
 target_link_libraries(spin cpdp)
+
+add_executable(kpin ${SOURCE_DIR}/kpin.cpp)
+target_link_libraries(kpin cpdp)

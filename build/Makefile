@@ -194,6 +194,19 @@ spin/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/build
 .PHONY : spin/fast
 
+#=============================================================================
+# Target rules for targets named kpin
+
+# Build rule for target.
+kpin: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kpin
+.PHONY : kpin
+
+# fast build rule for target.
+kpin/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/build
+.PHONY : kpin/fast
+
 src/bops.o: src/bops.cpp.o
 .PHONY : src/bops.o
 
@@ -265,6 +278,30 @@ src/dpin.s: src/dpin.cpp.s
 src/dpin.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.s
 .PHONY : src/dpin.cpp.s
+
+src/kpin.o: src/kpin.cpp.o
+.PHONY : src/kpin.o
+
+# target to build an object file
+src/kpin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/src/kpin.cpp.o
+.PHONY : src/kpin.cpp.o
+
+src/kpin.i: src/kpin.cpp.i
+.PHONY : src/kpin.i
+
+# target to preprocess a source file
+src/kpin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/src/kpin.cpp.i
+.PHONY : src/kpin.cpp.i
+
+src/kpin.s: src/kpin.cpp.s
+.PHONY : src/kpin.s
+
+# target to generate assembly for a file
+src/kpin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/src/kpin.cpp.s
+.PHONY : src/kpin.cpp.s
 
 src/lib/bio_information.o: src/lib/bio_information.cpp.o
 .PHONY : src/lib/bio_information.o
@@ -494,6 +531,7 @@ help:
 	@echo "... cns"
 	@echo "... cpdp"
 	@echo "... dpin"
+	@echo "... kpin"
 	@echo "... spin"
 	@echo "... test"
 	@echo "... src/bops.o"
@@ -505,6 +543,9 @@ help:
 	@echo "... src/dpin.o"
 	@echo "... src/dpin.i"
 	@echo "... src/dpin.s"
+	@echo "... src/kpin.o"
+	@echo "... src/kpin.i"
+	@echo "... src/kpin.s"
 	@echo "... src/lib/bio_information.o"
 	@echo "... src/lib/bio_information.i"
 	@echo "... src/lib/bio_information.s"

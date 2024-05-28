@@ -14,56 +14,46 @@
 
 using namespace std;
 
-bool CompareBySize(const set<string>& a, const set<string>& b) {
-    return a.size() > b.size();
-}
 
-double matched_score(const set<string>& a, const set<string>& b) {
-    set<string> comon;
-    set_intersection(a.begin(), a.end(), b.begin(), b.end(),
-                     inserter(comon, comon.begin()));
-    return static_cast<double>(comon.size()) /
-           static_cast<double>(max(a.size(), b.size()));
-}
-
-int main() {
+int main(int argc, char** argv) {
     // read
+    std::fstream nfile("/home/jh/code/JHPC/dataset/Yeast/PPI/no_exi1t.txt");
+    if(!nfile.is_open()) {
+        cerr << "open no_exit failed!" << endl;
+    }
+    string line;
+    set<string> no_exit;
+    while(getline(nfile, line)) {
+        istringstream iss(line);
+        string protein;
+        while(iss >> protein) {
+            no_exit.insert(protein);
+        }
+    }
+
     set<set<string>> complexes;
-    std::fstream file("./spin_collins.txt");
+    std::fstream file(argv[1]);
     if (!file.is_open()) {
         cerr << "Failed to open complexes file! " << endl;
         exit(1);
     }
 
-    string line;
-    while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        set<string> complex;
-        string protein;
-        while (iss >> protein) {
-            complex.insert(protein);
+    vector<string> edge_list;
+    while(getline(file, line)) {
+        string a, b;
+        istringstream iss(line);
+        iss >> a >> b;
+        if(no_exit.count(a) || no_exit.count(b)) {
+            continue;
         }
-        complexes.insert(complex);
-    }
-    std::cout << complexes.size() << endl;
-    vector<set<string>> complex_list(complexes.begin(), complexes.end());
-    sort(complex_list.begin(), complex_list.end(), CompareBySize);
-    vector<set<string>> result;
-    for (auto& c : complex_list) {
-        for (auto& d : result) {
-            bool insert = true;
-            double score = matched_score(d, c);
-            if (score >= 0.45) {
-                insert = false;
-                break;
-            }
-            if (insert) {
-                result.push_back(d);
-            }
-        }
+        edge_list.emplace_back(a);
+        edge_list.emplace_back(b);
     }
 
-    std::ofstream ofile("./last.txt");
+    std::ofstream ofile(argv[2]);
+    for(int i = 0; i < edge_list.size(); i+=2) {
+        ofile << edge_list[i] << "\t" << edge_list[i+1] << endl;
+    }
 
     return 0;
 }

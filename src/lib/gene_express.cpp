@@ -1,7 +1,7 @@
 #include "../../include/gene_express.h"
 
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 #include <fstream>
 #include <istream>
 #include <numeric>
@@ -301,7 +301,8 @@ vector<UnGraph> GeneExpress::build_KPIN(const UnGraph* g) {
                 // 的大多数时间内保持活性
                 active_temp = mean_varience.first;
             } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
-                active_temp = mean_varience.first - pow(mean_varience.second, 0.5);
+                active_temp =
+                    mean_varience.first - pow(mean_varience.second, 0.5);
             }
         } else {
             active_temp = 0.0;
@@ -395,7 +396,8 @@ vector<UnGraph> GeneExpress::build_KPIN2(const UnGraph* g) {
             continue;
         }
         for (int i = 0; i < count; ++i) {
-            double exp_temp = (it->second[i] + it->second[12 + i] + it->second[24 + i]) / 3;
+            double exp_temp =
+                (it->second[i] + it->second[12 + i] + it->second[24 + i]) / 3;
             if (exp_temp > active[protein]) {
                 set_proteins[i].insert(protein);
             }
@@ -423,7 +425,6 @@ vector<UnGraph> GeneExpress::build_KPIN2(const UnGraph* g) {
     }
     return dpins;
 }
-
 
 vector<UnGraph> GeneExpress::build_KPIN_min(const UnGraph* g) {
     int count = 12;
@@ -464,14 +465,82 @@ vector<UnGraph> GeneExpress::build_KPIN_min(const UnGraph* g) {
         }
         for (int i = 0; i < count; ++i) {
             double exp_temp_min = MAXFLOAT;
-            vector<double> arr{it->second[i],it->second[12 + i], it->second[24 + i]};
-            for(auto& a: arr) {
-                if(a < exp_temp_min) {
+            vector<double> arr{it->second[i], it->second[12 + i],
+                               it->second[24 + i]};
+            for (auto& a : arr) {
+                if (a < exp_temp_min) {
                     exp_temp_min = a;
                 }
             }
-            
+
             if (exp_temp_min > active[protein]) {
+                set_proteins[i].insert(protein);
+            }
+        }
+    }
+
+    // update edges
+    for (auto& e : g->edges) {
+        for (int i = 0; i < count; ++i) {
+            if (set_proteins[i].count(e->node_a->protein_name) &&
+                set_proteins[i].count(e->node_b->protein_name)) {
+                list_edges[i].emplace_back(e->node_a->protein_name);
+                list_edges[i].emplace_back(e->node_b->protein_name);
+                edge_weight[i].emplace_back(e->balanced_weight);
+            }
+        }
+    }
+
+    for (int i = 0; i < count; ++i) {
+        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+                  << endl;
+        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+                           move(edge_weight[i]));
+        dpins[i] = temp_graph;
+    }
+    return dpins;
+}
+
+// 关键蛋白质又更高的阈值
+vector<UnGraph> GeneExpress::build_KPINN(const UnGraph* g) {
+    int count = 36;
+    map<string, double> active;
+    for (auto& p : g->proteins) {
+        // 查找基因表达
+        double active_temp = 0.0;
+        auto it = gene_express.find(p->protein_name);
+        if (it != gene_express.end()) {
+            auto mean_varience = calculate_mean_varience(it->second);
+            if (essential_proteins.count(p->protein_name)) {
+                // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
+                // 的大多数时间内保持活性
+                active_temp = mean_varience.first - pow(mean_varience.second, 0.5);
+
+            } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
+                active_temp = mean_varience.first;
+            }
+        } else {
+            active_temp = 0.0;
+        }
+        active.insert(make_pair(p->protein_name, active_temp));
+    }
+
+    // 构建动态网络
+    vector<UnGraph> dpins(count);
+    vector<set<string>> set_proteins(count);
+    vector<vector<string>> list_edges(count);
+    vector<vector<double>> edge_weight(count);
+    for (auto& protein : g->proteins_name) {
+        // 是够含有当前蛋白质的基因表达数据？
+        auto it = gene_express.find(protein);
+        if (it == gene_express.end()) {
+            for (int i = 0; i < count; ++i) {
+                set_proteins[i].insert(protein);
+            }
+            continue;
+        }
+        for (int i = 0; i < count; ++i) {
+            if (it->second[i] > active[protein]) {
                 set_proteins[i].insert(protein);
             }
         }

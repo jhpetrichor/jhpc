@@ -124,4 +124,5 @@ set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/bops.dir/DependInfo.cmake"
   "CMakeFiles/dpin.dir/DependInfo.cmake"
   "CMakeFiles/spin.dir/DependInfo.cmake"
+  "CMakeFiles/kpin.dir/DependInfo.cmake"
   )
