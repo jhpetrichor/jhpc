@@ -3,7 +3,7 @@
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
  * @LastEditors: Please set LastEditors
- * @LastEditTime: 2024-05-28 14:56:50
+ * @LastEditTime: 2024-05-31 11:09:27
  */
 #include "../../include/dag.h"
 #include "../../include/config.h"
@@ -52,6 +52,9 @@ DAG::DAG(string is_a_file, string part_of_file){
     read_ancestor_child(part_of_file, part_of);
     add_edges(is_a, Relation::IS_A);
     add_edges(part_of, Relation::PART_OF);
+
+    // read protein-gos
+    read_protein_go(GO_SLIM);
 }
 
 DAG::~DAG() {
@@ -339,12 +342,17 @@ double DAG::similarity(const string& go1, const string& go2) {
     if (it != Similarity.end()) {
         return it->second;
     } else {
-        double sim = similarity(GO2ID[go1], GO2ID[go2]);
+        double sim = 0.0;
+        if(go1 == go2) {
+            sim = 0.0;
+        } else {
+            sim = similarity(GO2ID[go1], GO2ID[go2]);
+        }
         Similarity.insert(make_pair(pair<string, string>{go1, go2}, sim));
         Similarity.insert(make_pair(pair<string, string>{go2, go1}, sim));
-        if (isnan(sim) || sim <= 0.00001) {
-            return 0.1;
-        }
+        // if (isnan(sim) || sim <= 0.00001) {
+        //     return 0.1;
+        // }
         return sim;
     }
 }
@@ -418,8 +426,15 @@ void write_nodes(const DAG& dag) {
 }
 
 // 计算两个蛋白质的相互作用, 需要传入两个蛋白质的GO term
-double DAG::get_similarity_protein(const set<string>& gos1,
-                                   const set<string>& gos2) {
+double DAG::get_similarity_protein(const string& protein_1,
+                                   const string& protein_2) {
+    auto it1 = protein2gos.find(protein_1);
+    auto it2 = protein2gos.find(protein_2);
+    if(it1 == protein2gos.end() || it2 == protein2gos.end()) {
+        return 0;
+    }
+    auto gos1 = it1->second;
+    auto gos2= it2->second;
     double sum_sim = 0.0;
     for (auto& g1 : gos1) {
         sum_sim += get_similarity_go_gos_by_max(g1, gos2);
@@ -440,4 +455,21 @@ double DAG::get_similarity_go_gos_by_max(const string& go,
         }
     }
     return sim;
+}
+
+void DAG::read_protein_go(string file_path) {
+    fstream file(file_path);
+    string line;
+    while(getline(file, line)) {
+        istringstream iss(line);
+        string protein;
+        iss >> protein;
+        set<string> go;
+        string g;
+        while(iss >> g) {
+            go.insert(g);
+        }
+        protein2gos.insert(make_pair(protein, go));
+    }
+    file.close();
 }

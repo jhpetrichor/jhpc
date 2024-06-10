@@ -1,93 +1,131 @@
-/*
- * @Description: 
- * @Author: jh
- * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-01 18:10:53
- */
+#ifndef __GRAPH_H__
+#define __GRAPH_H__
 
-#ifndef GRAPH_H
-#define GRAPH_H
+#include "dag.h"
 
-#include "bio_information.h"
-#include <cmath>
+#include <algorithm>
 #include <iostream>
-#include <queue>
-#include <fstream>
+#include <map>
+#include <set>
+#include <unordered_map>
+#include <unordered_set>
+#include <vector>
+
 using namespace std;
-// const int MAXN = 20010,MAXP = 20;
 
-#define MAXN 20010
-#define MAXP 20
+class Edge {
+  public:
+    int smllar;
+    int bigger;
+    double weight;
 
-struct PPI;
-
-extern map<int, string> Id2protein;
-extern map<string, int> Protein2id;
-extern int Protein_count;
-
-struct Interaction {
-    int proteina, proteinb;
-    double interaction;
-    double balanced_interaction;
-
-    Interaction(int _proteina = 0, int _proteinb = 0, double _interaction = 0, double _balanced_interaction = 0);
-    bool operator<(const Interaction&) const;
+    Edge(int a = 0, int b = 0, double __weight = 0.0);
+    bool operator==(const Edge&) const;
+    bool operator<(const Edge&) const;
+    static bool CompareByWeight(const Edge& e1, const Edge& e2);
+    void debug() const;
 };
 
-struct PPI {
-    vector<int> protein;
-    vector<Interaction> interaction;
-    bool mp[MAXP][MAXP]; 
+// 简单无向图
+class Graph {
+  private:
+    struct PairHash {
+        size_t operator()(const std::pair<int, int>& p) const {
+            return std::hash<int>()(p.first) ^ std::hash<int>()(p.second);
+        }
+    };
+    void read_edge(string& file_path, vector<int>& edge_list,
+                   map<string, int>& __protein_id,
+                   map<int, string>& __id_protein) const;
+
+  public:
+    static DAG child_ancestor;
+    static DAG ancestor_child;
+
+    int node_count;
+    int edge_count;
+    vector<vector<bool>> connected;
+    map<int, set<int>> adjancy_list; // 邻接表
+    vector<Edge> edges;
+    std::unordered_map<std::pair<int, int>, int, PairHash> edge_id;
+    map<string, int> protein_id;
+    map<int, string> id_protein;
+
+    Graph() = default;
+    explicit Graph(string& ppi_file);
+    explicit Graph(vector<string>& edge_list, vector<double>* = nullptr);
+    ~Graph() = default;
+    set<int> get_neighbor(int n);
+    void add_edge(int u, int v, double weight = 0.0);
+    // 谨慎使用不安全
+    void remove_edge(int u, int v);
+    int get_edge_id(int u, int v) const;
+    int degree(int id) const;
+
+    // set<int> get_common_neighbor(int u, int v) const;
+    double jaccard_similarity(int u, int v) const;
+    double jaccard_similarity_more(int u, int v) const;
+    void weighted_by_go_term();
+    void weighted_by_go_term(vector<Edge>& edges) const;
+    void normalize_edge_weight_min_max();
+    void update_edge_id();
+    void calculate_balanced_weight(double balanced_index = 1.5);
+    set<int> get_common_neighbor(int u, int v) const;
+    pair<double, double> unidirectional_similarity(int u, int v) const;
 };
 
-struct Result {
-    double cohesion;
-    vector<int> protein;
+namespace Complex {
 
-    bool operator<(const Result& b) const;
-};
+template<typename T>
+bool CompareSetBySize(const set<T>& a, const set<T>& b) {
+    return a.size() > b.size();
+}
 
-// add new
-void delete_interaction_by_pearson(PPI&, BioInformation&);
-void jiaquan2(PPI&, BioInformation&);
-void weight_interaction(PPI&, BioInformation&);
-void calculate_weight(PPI&);
-void get_adjacency_list(const PPI& Current_ppi, map<int, set<int>>& adjacency); 
-void get_hocn(PPI&, const map<int, set<int>>&, vector<vector<double>>&);
+template <typename T> double overlapping_score(set<T>& a, set<T>& b) {
+    set<T> common;
+    set_intersection(a.begin(), a.end(), b.begin(), b.end(),
+                     inserter(common, common.end()));
+    return static_cast<double>(common.size()) /
+           static_cast<double>(a.size(), b.size());
+}
+/**
+ * @brief Updates the complexes vector by adding a new complex if it does not
+ * have a significant overlap with existing complexes.
+ *
+ * This function iterates over the existing complexes in the complexes vector
+ * and checks if the overlap score (OS) between the new complex and any existing
+ * complex is greater than or equal to the given threshold. If no significant
+ * overlap is found, the new complex is added to the complexes vector.
+ *
+ * @param complexes A vector of sets, where each set represents a complex.
+ * @param complex The new complex to be added to the complexes vector.
+ * @param threshold The minimum overlap score required for a new complex to be
+ * considered a significant overlap with an existing complex.
+ *
+ * @return void
+ */
+void update_complexes(vector<set<string>>& complexes, set<string>& complex,
+                      double threshold = 0.90);
+/**
+ * @brief Writes the complexes to a file.
+ *
+ * This function writes the complexes to a file, where each complex is
+ * represented as a line with tab-separated protein identifiers.
+ *
+ * @param file_path The path to the output file.
+ * @param id_protein A map that maps protein IDs to their identifiers.
+ * @param complexes A vector of sets, where each set represents a complex.
+ *
+ * @return void
+ *
+ * @throws std::runtime_error If the file cannot be opened.
+ */
+void write_complex(const string& file_path, const map<int, string>& id_protein,
+                   const vector<set<int>>& comeplxes);
 
-void get_common_number(PPI&, const map<int, set<int>>&, vector<vector<int>>&);
-void get_quadrangle_weight(PPI&, const map<int, set<int>>&, vector<vector<double>>&);
-void max_sms(PPI&, const map<int, set<int>>&, vector<vector<int>>&);
-
-// add new
-
-// Reading weighted-PPI from Ppidata_file
-void read_proteins_with_weight(PPI&, string);
-// Reading PPI from Ppidata_file
-void read_proteins(PPI&, string);
-void calculate_weight(PPI&);
-// This function calculates the balanced weight of interaction
-void get_balanced_interaction(PPI&, double);
-// This is a data structure, called Disjoint Set Union to check if two proteins are in the same set
-int getfa(int, int fa[]);
-// This function is to split huge ppi into small ppi
-// 分解较大的 PPI 为小型 PPI
-// 这里没有递归实现
-void split_ppi(queue<PPI>&, vector<PPI>&);
-// caculate the similarity of two complexs
-double calculate_similarity(vector<int>&, vector<int>&);
-// This function caculate the cohesion of one complex
-double calculate_complex_cohesion(PPI&, vector<int>&);
-// This function determines whether the connected subset is a protein complex and removes protein complexes that are too similar.
-void update_result(Result&, vector<Result>&, double);
-// This function gets the corresponding serial number of the protein in the current PPI
-int get_Current_ppi_protein(PPI&, int);
-// enumerates the connected subset of each small PPIN
-void get_complexs(PPI&, vector<Result>&, double);
-//This function divides the PPIN into smaller PPIN and calls the function to solve each smaller PPIN
-vector <Result> get_result(PPI&, double);
-// This function writes predicted protein complexes in result
-void write_proteins(vector<Result>, string);
-void print_information(string, string, double);
+void write_complex(const string& file_path, const set<set<string>>& comeplxes);
+void write_complex(const string& file_path,
+                   const vector<set<string>>& comeplxes);
+}; // namespace Complex
 
 #endif

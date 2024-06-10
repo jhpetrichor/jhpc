@@ -2,7 +2,7 @@
  * @brief: 
  * @Author: jh
  * @Date: 2024-05-06 13:23:07
- * @LastEditTime: 2024-05-28 14:18:10
+ * @LastEditTime: 2024-06-01 16:02:47
  */
 #include <cstdio>
 #include <iostream>
@@ -16,7 +16,7 @@
 using namespace std;
 
 int main() {
-    std::fstream file("./part_of.txt");
+    std::fstream file("./is_a.txt");
     string line;
     map<string, set<string>> child_ancestor;
     
@@ -31,7 +31,7 @@ int main() {
     }
     file.close();
 
-    std::ofstream ofile("./part_of_child_ancestor.txt");
+    std::ofstream ofile("./is_a_child_ancestor.txt");
     for(auto& it: child_ancestor) {
         ofile << it.first << "\t";
         for(auto& a: it.second) {

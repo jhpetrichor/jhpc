@@ -1,16 +1,11 @@
-<!--
- * @brief: 
- * @Author: jh
- * @Date: 2024-05-20 09:48:16
- * @LastEditTime: 2024-05-27 19:31:55
--->
----
 # We'll use defaults from the LLVM style, but with 4 columns indentation.
 BasedOnStyle: LLVM
 IndentWidth: 4
+SpaceBeforeRangeBasedForLoopColon: true 
 ---
 Language: Cpp
 # Force pointers to the type for C++.
 DerivePointerAlignment: false
 PointerAlignment: Left
 ---
+

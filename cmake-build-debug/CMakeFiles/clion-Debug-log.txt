@@ -1,4 +1,4 @@
-/snap/clion/275/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -DPython_EXECUTABLE=/home/jh/App/anaconda/envs/py27/bin/python -DPython2_EXECUTABLE=/home/jh/App/anaconda/envs/py27/bin/python -S /home/jh/code/JHPC -B /home/jh/code/JHPC/cmake-build-debug
+/snap/clion/277/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" -DPython_EXECUTABLE=/home/jh/App/anaconda/envs/py27/bin/python -DPython2_EXECUTABLE=/home/jh/App/anaconda/envs/py27/bin/python -S /home/jh/code/JHPC -B /home/jh/code/JHPC/cmake-build-debug
 CMake Deprecation Warning:
   Support for "Extra Generators" like
 

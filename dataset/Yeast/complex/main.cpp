@@ -44,10 +44,11 @@ void write_complex(string file_path, vector<set<string>>& complexes) {
 
 int main(){
     set<set<string>> complexes;
-    read_complex("./gavin.txt", complexes);
-    read_complex("./collins.txt", complexes);
-    read_complex("./krogan_core.txt", complexes);
-    read_complex("./krogan_extented.txt", complexes);
+    read_complex("./cyc_2008", complexes);
+    read_complex("./CYC2008.txt", complexes);
+    read_complex("./new_mips.txt", complexes);
+    read_complex("./sgd_complex.txt", complexes);
+    read_complex("./yeast_complex.txt", complexes);
     std::vector<std::set<string>> sortedSets(complexes.begin(), complexes.end());
     std::sort(sortedSets.begin(), sortedSets.end(), CompareSetSize());
     write_complex("./my_complex.txt", sortedSets);

@@ -1,0 +1,2 @@
+/home/jh/code/JHPC/dataset/Yeast/PPI/Collins.txt    /home/jh/code/JHPC/result/Collins.txt
+/home/jh/complex_open_source/DPPIN/DPPIN-Tarassov/Static_PPIN.txt /home/jh/code/JHPC/result/ito.txt

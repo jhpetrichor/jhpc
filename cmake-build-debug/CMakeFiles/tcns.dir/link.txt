@@ -1,0 +1,1 @@
+/usr/bin/c++ -g CMakeFiles/tcns.dir/src/two_cns.cpp.o -o /home/jh/code/JHPC/bin/tcns   -L/home/jh/code/JHPC/lib 

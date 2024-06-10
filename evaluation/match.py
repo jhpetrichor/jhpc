@@ -35,6 +35,8 @@ def matching_score(set1, set2):
     return len(set1.intersection(set2)) ** 2 / (float(len(set1)) * len(set2))
 
 
+# F-measure 2 * recall * precision / (recall + precision)
+#           2 * SN* SP / (SN + SP)
 def fraction_matched(reference, predicted, score_threshold=0.25):
     recall = recall_matched(reference, predicted, score_threshold);
     precision = predicted_matched(reference, predicted, score_threshold);
@@ -43,10 +45,12 @@ def fraction_matched(reference, predicted, score_threshold=0.25):
     return 2 * recall * precision / (recall + precision)
 
 
+# ACC = (SN * PPV)  ** 0.5
 def accuracy(reference, predicted):
     return (clusteringwise_sensitivity(reference, predicted) * positive_predictive_value(reference, predicted)) ** 0.5
 
 
+# SN
 def clusteringwise_sensitivity(reference, predicted):
     if len(predicted) == 0:
         return 0
@@ -59,6 +63,7 @@ def clusteringwise_sensitivity(reference, predicted):
     return num / den
 
 
+# Recall
 def recall_matched(reference, predicted, score_threshold=0.25):
     result = 0
     for id1, c1 in enumerate(reference):
@@ -72,6 +77,7 @@ def recall_matched(reference, predicted, score_threshold=0.25):
     return result / len(reference)
 
 
+# Predicted
 def predicted_matched(reference, predicted, score_threshold=0.25):
     result = 0
     for id1, c1 in enumerate(predicted):
@@ -85,6 +91,7 @@ def predicted_matched(reference, predicted, score_threshold=0.25):
     return result / len(predicted)
 
 
+# PPV
 def positive_predictive_value(reference, predicted):
     num, den = 0., 0.
     for cluster in predicted:
@@ -97,6 +104,7 @@ def positive_predictive_value(reference, predicted):
     return num / den
 
 
+# MMR
 def maximum_matching_ratio(reference, predicted, score_threshold=0.25):
     scores = {}
 
@@ -114,7 +122,17 @@ def maximum_matching_ratio(reference, predicted, score_threshold=0.25):
     score = sum(scores[i, mate] for i, mate in enumerate(mates) if i < mate)
     return score / n
 
-
+def coverage(reference, predicted):
+    ref_set = set()
+    pre_set = set()
+    for complex in reference:
+        for protein in complex:
+            ref_set.add(protein)
+    for complex in predicted:
+        for protein in complex:
+            pre_set.add(protein)
+    compiled_set = ref_set.intersection(pre_set)
+    return len(compiled_set) / len(ref_set)
 ###########################################################################
 
 class MatchApplication(object):
@@ -128,6 +146,7 @@ class MatchApplication(object):
             Recall=recall_matched,
             Predicted=predicted_matched,
             MMR=maximum_matching_ratio,
+            Coverage=coverage,
         )
         self.parser = self.create_parser()
 

@@ -1,212 +1,148 @@
-/*
- * @brief: 
- * @Author: jh
- * @Date: 2024-05-20 09:33:37
- * @LastEditTime: 2024-05-28 21:01:28
- */
-/*
- * @brief:
- * @Author: jh
- * @Date: 2024-05-06 13:23:07
- * @LastEditTime: 2024-05-22 15:54:18
- */
- 
-#include "../include/dag.h"
-#include "../include/gene_express.h"
-#include "../include/ungraph.h"
+#include "graph.h"
+#include "config.h"
+#include "gene_express.h"
 
-#include <algorithm>
-#include <cassert>
 #include <cmath>
-#include <cstdlib>
-#include <iostream>
-#include <math.h>
-#include <queue>
-#include <unistd.h>
-#include <vector>
+#include <sstream>
 
-DAG UnGraph::ancestor_child(IS_A_A2C, PART_OF_A2C);
-DAG UnGraph::child_ancestor(IS_A_C2A, PART_OF_C2A);
-map<string, set<string>> UnGraph::protein_go = UnGraph::read_protein_go(GO_SLIM);
-class CNS {
-public:
-    UnGraph* graph;
-    map<ProteinPtr, double> protein_weight;
-    vector<vector<double>> attraction; // 记录节点之间的相互吸引力
-    map<ProteinPtr, double> protein_attraction; // 节点的影响力之和
-    explicit CNS(UnGraph* g) { graph = g; }
-    /**
-     * @brief: 计算每个节点的权重，节点的权重为关联边权重之和
-     */
-    auto calculateod_node_weight() {
-        for (const auto& e : graph->edges) {
-            protein_weight[e->node_a] += e->balanced_weight;
-            protein_weight[e->node_b] += e->balanced_weight;
-        }
+class KPIN_CNS {
+  public:
+    Graph* g;
+    double ct;
+    double at;
+    
+    vector<double> node_weight;        // 节点的权重
+    vector<vector<double>> attraction; // 节点之间的相互吸引力
+    vector<double> node_attraction;    // 节点的影响力之和
+    vector<vector<double>> uni_sim;
+
+    KPIN_CNS(Graph* _g, double _ct, double _at) {
+        g = _g;
+        ct = _ct;
+        at = _at;
     }
-
-    /**
-     * @brief: 计算每两个节点直接的吸引力，以及节点的影响力
-     */
-    auto calculate_attraction() {
-        attraction.resize(graph->proteins.size(),
-                          vector<double>(graph->proteins.size(), 0.0));
-        graph->clean_protein_weight();
-        calculateod_node_weight();
-        for (const auto& e : graph->edges) {
-            // const double d = 1.0 - log(1.2 - e->balanced_weight);
-            double d = 1.0 - log(1.0 / (1 + e->balanced_weight));
-            const double score = protein_weight[e->node_a] *
-                                 protein_weight[e->node_b] / pow(d, 2);
-            protein_attraction[e->node_a] += score;
-            protein_attraction[e->node_b] += score;
-            attraction[e->node_a->id][e->node_b->id] = score;
-            attraction[e->node_b->id][e->node_a->id] = score;
-        }
-    }
-
-    /**
-     * @brief: 按照节点的平均吸引力对蛋白质节点排序
-     * @return 返回排序完成的蛋白质队列
-     */        
-    // auto find_seed_node_by_average_attraction() -> vector<ProteinPtr> {
-    //     //queue<ProteinPtr> seed_node;   // 按照平均吸引力大小，从高到低排序
-    //     // init protein_weight
-    //     calculate_attraction();
-    //     for(auto& p: graph->proteins) {
-    //         p->weight = p->weight / p->degree();
-    //     }
-    //     vector<ProteinPtr> seed_node(graph->proteins.begin(), graph->proteins.end());
-    //     std::sort(seed_node.begin(), seed_node.end(), Protein::ProteinCompareByWeight);
-    //     for(auto& p: seed_node) {
-    //         std::cout << p->weight << endl;
-    //     }
-    //     exit(1);
-    // }
-
-    auto find_compelx() -> vector<set<string>> {
-        // find_seed_node_by_average_attraction();
-        // exit(1);
+    set<set<string>> find_complex() {
+        calculate_node_weight();
         calculate_attraction();
-        vector<set<string>> complexes;
-        // auto seed_node = find_seed_node_by_attraction();
-        for (auto& p : graph->proteins) {
-            set<string> temp_complex{p->protein_name};
-            for (auto& nei : p->neighbor) {
-                if(Complex::evaluate_by_density(*graph, temp_complex, 0.66)) {
-                    temp_complex.insert(nei->protein_name);
+        update_uni_sim();
+        set<set<string>> complexes = _m_find_complex();
+        return complexes;
+    }
+
+  private:
+    void calculate_node_weight() {
+        node_weight.resize(g->node_count, 0.0);
+        for (auto& e: g->edges) {
+            node_weight[e.smllar] += e.weight;
+            node_weight[e.bigger] += e.weight;
+        }
+    }
+
+    void calculate_attraction() {
+        attraction.resize(g->node_count, vector<double>(g->node_count, 0));
+        node_attraction.resize(g->node_count, 0.0);
+        for (auto& e: g->edges) {
+            const double dis = 1.0 - log(1.0 / (1 + e.weight));
+            const double f = node_weight[e.smllar] * node_weight[e.bigger] / pow(dis, 2);
+            node_attraction[e.smllar] += f;
+            node_attraction[e.bigger] += f;
+            attraction[e.smllar][e.bigger] = f;
+            attraction[e.bigger][e.smllar] = f;
+        }
+    }
+
+    void update_uni_sim() {
+        uni_sim.resize(g->node_count, vector<double>(g->node_count, 0.0));
+        for(auto& e: g->edges) {
+            pair<double, double> it = g->unidirectional_similarity(e.smllar, e.bigger);
+            uni_sim[e.smllar][e.bigger] = it.first;
+            uni_sim[e.bigger][e.smllar] = it.second;
+        }
+    }
+
+    set<set<string>> _m_find_complex() {
+        set<set<string>> complexes;    // core？
+        for(int i = 0; i < g->node_count; ++i) {
+            set<int> temp_complex{i};
+            set<int> neighbor = g->get_neighbor(i);
+            for(auto& j: neighbor) {
+                if(uni_sim[i][j] > ct) {
+                    temp_complex.insert(j);
                 }
             }
 
-            // expand
-            set<string> candidate;
-            // temp_complex 成员
-            for (auto& m : temp_complex) {
-                // 邻居， 如果已经包含在temp_complex 或者candidate 中跳过
-                for (auto& nei :
-                    graph->ID2Protein[graph->protein_name_id[m]]->neighbor) {
-                    if (candidate.count(nei->protein_name) ||
-                        temp_complex.count(nei->protein_name)) {
-                        continue;
-                    }
-                    double sum_attraction = 0.0;
-                    for (auto& nnei : nei->neighbor) {
-                        if (temp_complex.count(nnei->protein_name)) {
-                            sum_attraction += attraction[nnei->id][nei->id];
+            // candidate
+            set<int> candidate;  // attrachment
+            for(auto& n: temp_complex) {
+                auto neighbor = g->get_neighbor(n);
+                for(auto& nei: neighbor) {
+                    if(!temp_complex.count(nei) && !candidate.count(nei)) {
+                        // 计算和社区内的节点的吸引力之和
+                        double sum = 0.0;
+                        for(auto& c: temp_complex) {
+                            sum += attraction[c][nei];
                         }
-                    }
-                    if (sum_attraction / protein_attraction[nei] >= 0.40) {
-                        candidate.insert(nei->protein_name);
+                        if(sum / node_attraction[nei]  >= at) {
+                            candidate.insert(nei);
+                        }
                     }
                 }
             }
             temp_complex.insert(candidate.begin(), candidate.end());
-            if (temp_complex.size() <= 2)
-                continue;
-            if(!Complex::evaluate_by_density(*graph, temp_complex, 0.66))
-                continue;
-            if(!Complex::evaluate_by_weight(*graph, temp_complex))
-                continue;
-            complexes.emplace_back(temp_complex);
+            set<string> complex;
+            for(auto& n: temp_complex) {
+                complex.insert(g->id_protein[n]);
+            }
+            if(complex.size() <= 2 || complex.size() >= 20) continue;
+            complexes.insert(complex);
         }
-        std::cout << "end cns 。。。" << endl;
         return complexes;
-        // vector<set<string>> result;
-        // sort(complexes.begin(), complexes.end(), Complex::CompareSetBySize);
-        // for (auto& c : complexes) {
-        //     // if(Complex::evaluate_by_weight(UnGraph &g, set<string> &complex))
-        //     Complex::update_complexes(result, c, 0.80);
-        // }
-
-        // return result;
     }
 };
 
-int main(int argc, char** argv) {
-    int opt;
-    string ppi_file;
-    string out_file;
-    while ((opt = getopt(argc, argv, "i:o:")) != -1) {
-        string temp = optarg;
-        switch (opt) {
-        case 'i':
-            ppi_file = "/home/jh/code/JHPC/dataset/Yeast/PPI/" + temp + ".txt";
-            break;
-        case 'o':
-            out_file = "/home/jh/code/JHPC/result/" + temp + ".txt";
-            break;
-        default:
-            std::cerr << "Usage: " << argv[0] << " -n <value> -s <value>"
-                      << std::endl;
-            return 1;
+DAG Graph::ancestor_child(IS_A_A2C, PART_OF_A2C);
+DAG Graph::child_ancestor(IS_A_C2A, PART_OF_C2A);
+int main(int argc, char const **argv) {
+    string file_path = argv[1];
+    string result = argv[2];
+    double ct = atof(argv[3]);   // core threshold
+    double at = atof(argv[4]);   // uni similarity threshold
+    double ot = atof(argv[5]);   // overlap threshold
+
+    // fstream file("config.txt");  // 配置文件
+    // string line;
+    // while(getline(file, line)) {
+    //     istringstream iss(line);
+    //     iss >> file_path;
+    //     iss >> result;
+    // }
+
+    set<set<string>>  complexes;
+    
+    Graph g(file_path);
+    GeneExpress ges;
+    vector<Graph> graphs = ges.build_KPIN(&g);
+    for(auto& pg: graphs) {
+        pg.weighted_by_go_term();
+        for(auto& e: pg.edges) {
+            e.weight += pg.jaccard_similarity_more(e.smllar, e.bigger);
         }
+        // 归一化
+        pg.calculate_balanced_weight();
+        pg.normalize_edge_weight_min_max();
+        KPIN_CNS kpin(&pg, ct, at);
+        auto temp_complexes = kpin.find_complex();
+        complexes.insert(temp_complexes.begin(), temp_complexes.end());
+    }
+    vector<set<string>> temp_complexes(complexes.begin(), complexes.end());
+    sort(temp_complexes.begin(), temp_complexes.end(), Complex::CompareSetBySize<string>);
+    std::cout << complexes.size() << endl;
+    vector<set<string>> result_complexes;
+    for(auto& c: temp_complexes) { 
+        Complex::update_complexes(result_complexes, c, ot);
     }
 
-    if (ppi_file.empty() || out_file.empty()) {
-        std::cerr << "Error: -i and -n options require values." << std::endl;
-        return 1;
-    }
-    cout << "ppi_file: " << ppi_file << endl;
-    cout << "out_file: " << out_file << endl;
-
-    vector<set<string>> complexes;
-
-    UnGraph g(ppi_file);
-    GeneExpress exp;
-    // vector<UnGraph> dpins = exp.build_dynamic_PPI(&g, DPIN_MEHTOD::TOP);
-    vector<UnGraph> dpins = exp.build_KPIN(&g);
-    for (auto& dg : dpins) {
-        // 加权
-        dg.weight_by_go_term();
-        // 同质性指数
-        for (auto& e : dg.edges) {
-            const double s = e->node_a->more_jaccard_similarity(e->node_b);
-            e->weight += s;
-            e->balanced_weight += s;
-            // assert(e->balanced_weight <= 1.0);
-        }
-        // 平衡，归一化和不归一化对比实验，到
-        // dg.calculate_balanced_weight();
-        dg.normalize_edge_weight_min_max();
-        for (auto& e : dg.edges) {
-            // const double s = e->node_a->more_jaccard_similarity(e->node_b);
-            // e->weight += s;
-            // e->balanced_weight += s;
-            // assert(e->balanced_weight <= 1.0);
-            if(e->balanced_weight > 1.0) e->display();
-        }
-        CNS cns(&dg);
-        auto temp_complexes = cns.find_compelx();
-        complexes.insert(complexes.end(), temp_complexes.begin(),
-                         temp_complexes.end());
-    }
-    std::sort(complexes.begin(), complexes.end(), Complex::CompareSetBySize);
-    vector<set<string>> result;
-    for (auto& c : complexes) {
-        // if(Complex::evaluate_by_weight(UnGraph &g, set<string> &complex))
-        Complex::update_complexes(result, c, 0.80);
-    }
-
-    Complex::write_complex_to_file(result, out_file);
+    Complex::write_complex(result, temp_complexes);
+    // std::cout << result_complexes.size() << endl;
     return 0;
 }

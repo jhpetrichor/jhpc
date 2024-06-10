@@ -130,19 +130,6 @@ cpdp/fast:
 .PHONY : cpdp/fast
 
 #=============================================================================
-# Target rules for targets named test
-
-# Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
-.PHONY : test
-
-# fast build rule for target.
-test/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
-
-#=============================================================================
 # Target rules for targets named cns
 
 # Build rule for target.
@@ -156,80 +143,17 @@ cns/fast:
 .PHONY : cns/fast
 
 #=============================================================================
-# Target rules for targets named bops
+# Target rules for targets named tcns
 
 # Build rule for target.
-bops: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 bops
-.PHONY : bops
+tcns: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tcns
+.PHONY : tcns
 
 # fast build rule for target.
-bops/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/build
-.PHONY : bops/fast
-
-#=============================================================================
-# Target rules for targets named dpin
-
-# Build rule for target.
-dpin: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 dpin
-.PHONY : dpin
-
-# fast build rule for target.
-dpin/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/build
-.PHONY : dpin/fast
-
-#=============================================================================
-# Target rules for targets named spin
-
-# Build rule for target.
-spin: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 spin
-.PHONY : spin
-
-# fast build rule for target.
-spin/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/build
-.PHONY : spin/fast
-
-#=============================================================================
-# Target rules for targets named kpin
-
-# Build rule for target.
-kpin: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 kpin
-.PHONY : kpin
-
-# fast build rule for target.
-kpin/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/build
-.PHONY : kpin/fast
-
-src/bops.o: src/bops.cpp.o
-.PHONY : src/bops.o
-
-# target to build an object file
-src/bops.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.o
-.PHONY : src/bops.cpp.o
-
-src/bops.i: src/bops.cpp.i
-.PHONY : src/bops.i
-
-# target to preprocess a source file
-src/bops.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.i
-.PHONY : src/bops.cpp.i
-
-src/bops.s: src/bops.cpp.s
-.PHONY : src/bops.s
-
-# target to generate assembly for a file
-src/bops.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/bops.dir/build.make CMakeFiles/bops.dir/src/bops.cpp.s
-.PHONY : src/bops.cpp.s
+tcns/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcns.dir/build.make CMakeFiles/tcns.dir/build
+.PHONY : tcns/fast
 
 src/cns.o: src/cns.cpp.o
 .PHONY : src/cns.o
@@ -254,78 +178,6 @@ src/cns.s: src/cns.cpp.s
 src/cns.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cns.dir/build.make CMakeFiles/cns.dir/src/cns.cpp.s
 .PHONY : src/cns.cpp.s
-
-src/dpin.o: src/dpin.cpp.o
-.PHONY : src/dpin.o
-
-# target to build an object file
-src/dpin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.o
-.PHONY : src/dpin.cpp.o
-
-src/dpin.i: src/dpin.cpp.i
-.PHONY : src/dpin.i
-
-# target to preprocess a source file
-src/dpin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.i
-.PHONY : src/dpin.cpp.i
-
-src/dpin.s: src/dpin.cpp.s
-.PHONY : src/dpin.s
-
-# target to generate assembly for a file
-src/dpin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/dpin.dir/build.make CMakeFiles/dpin.dir/src/dpin.cpp.s
-.PHONY : src/dpin.cpp.s
-
-src/kpin.o: src/kpin.cpp.o
-.PHONY : src/kpin.o
-
-# target to build an object file
-src/kpin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/src/kpin.cpp.o
-.PHONY : src/kpin.cpp.o
-
-src/kpin.i: src/kpin.cpp.i
-.PHONY : src/kpin.i
-
-# target to preprocess a source file
-src/kpin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/src/kpin.cpp.i
-.PHONY : src/kpin.cpp.i
-
-src/kpin.s: src/kpin.cpp.s
-.PHONY : src/kpin.s
-
-# target to generate assembly for a file
-src/kpin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/kpin.dir/build.make CMakeFiles/kpin.dir/src/kpin.cpp.s
-.PHONY : src/kpin.cpp.s
-
-src/lib/bio_information.o: src/lib/bio_information.cpp.o
-.PHONY : src/lib/bio_information.o
-
-# target to build an object file
-src/lib/bio_information.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.o
-.PHONY : src/lib/bio_information.cpp.o
-
-src/lib/bio_information.i: src/lib/bio_information.cpp.i
-.PHONY : src/lib/bio_information.i
-
-# target to preprocess a source file
-src/lib/bio_information.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.i
-.PHONY : src/lib/bio_information.cpp.i
-
-src/lib/bio_information.s: src/lib/bio_information.cpp.s
-.PHONY : src/lib/bio_information.s
-
-# target to generate assembly for a file
-src/lib/bio_information.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/bio_information.cpp.s
-.PHONY : src/lib/bio_information.cpp.s
 
 src/lib/dag.o: src/lib/dag.cpp.o
 .PHONY : src/lib/dag.o
@@ -423,101 +275,29 @@ src/lib/graph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/graph.cpp.s
 .PHONY : src/lib/graph.cpp.s
 
-src/lib/subcellular.o: src/lib/subcellular.cpp.o
-.PHONY : src/lib/subcellular.o
+src/two_cns.o: src/two_cns.cpp.o
+.PHONY : src/two_cns.o
 
 # target to build an object file
-src/lib/subcellular.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.o
-.PHONY : src/lib/subcellular.cpp.o
+src/two_cns.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcns.dir/build.make CMakeFiles/tcns.dir/src/two_cns.cpp.o
+.PHONY : src/two_cns.cpp.o
 
-src/lib/subcellular.i: src/lib/subcellular.cpp.i
-.PHONY : src/lib/subcellular.i
-
-# target to preprocess a source file
-src/lib/subcellular.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.i
-.PHONY : src/lib/subcellular.cpp.i
-
-src/lib/subcellular.s: src/lib/subcellular.cpp.s
-.PHONY : src/lib/subcellular.s
-
-# target to generate assembly for a file
-src/lib/subcellular.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/subcellular.cpp.s
-.PHONY : src/lib/subcellular.cpp.s
-
-src/lib/ungraph.o: src/lib/ungraph.cpp.o
-.PHONY : src/lib/ungraph.o
-
-# target to build an object file
-src/lib/ungraph.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.o
-.PHONY : src/lib/ungraph.cpp.o
-
-src/lib/ungraph.i: src/lib/ungraph.cpp.i
-.PHONY : src/lib/ungraph.i
+src/two_cns.i: src/two_cns.cpp.i
+.PHONY : src/two_cns.i
 
 # target to preprocess a source file
-src/lib/ungraph.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.i
-.PHONY : src/lib/ungraph.cpp.i
+src/two_cns.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcns.dir/build.make CMakeFiles/tcns.dir/src/two_cns.cpp.i
+.PHONY : src/two_cns.cpp.i
 
-src/lib/ungraph.s: src/lib/ungraph.cpp.s
-.PHONY : src/lib/ungraph.s
-
-# target to generate assembly for a file
-src/lib/ungraph.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/ungraph.cpp.s
-.PHONY : src/lib/ungraph.cpp.s
-
-src/spin.o: src/spin.cpp.o
-.PHONY : src/spin.o
-
-# target to build an object file
-src/spin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/src/spin.cpp.o
-.PHONY : src/spin.cpp.o
-
-src/spin.i: src/spin.cpp.i
-.PHONY : src/spin.i
-
-# target to preprocess a source file
-src/spin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/src/spin.cpp.i
-.PHONY : src/spin.cpp.i
-
-src/spin.s: src/spin.cpp.s
-.PHONY : src/spin.s
+src/two_cns.s: src/two_cns.cpp.s
+.PHONY : src/two_cns.s
 
 # target to generate assembly for a file
-src/spin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/spin.dir/build.make CMakeFiles/spin.dir/src/spin.cpp.s
-.PHONY : src/spin.cpp.s
-
-src/test.o: src/test.cpp.o
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.o
-.PHONY : src/test.cpp.o
-
-src/test.i: src/test.cpp.i
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.i
-.PHONY : src/test.cpp.i
-
-src/test.s: src/test.cpp.s
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.s
-.PHONY : src/test.cpp.s
+src/two_cns.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcns.dir/build.make CMakeFiles/tcns.dir/src/two_cns.cpp.s
+.PHONY : src/two_cns.cpp.s
 
 # Help Target
 help:
@@ -527,28 +307,12 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... bops"
 	@echo "... cns"
 	@echo "... cpdp"
-	@echo "... dpin"
-	@echo "... kpin"
-	@echo "... spin"
-	@echo "... test"
-	@echo "... src/bops.o"
-	@echo "... src/bops.i"
-	@echo "... src/bops.s"
+	@echo "... tcns"
 	@echo "... src/cns.o"
 	@echo "... src/cns.i"
 	@echo "... src/cns.s"
-	@echo "... src/dpin.o"
-	@echo "... src/dpin.i"
-	@echo "... src/dpin.s"
-	@echo "... src/kpin.o"
-	@echo "... src/kpin.i"
-	@echo "... src/kpin.s"
-	@echo "... src/lib/bio_information.o"
-	@echo "... src/lib/bio_information.i"
-	@echo "... src/lib/bio_information.s"
 	@echo "... src/lib/dag.o"
 	@echo "... src/lib/dag.i"
 	@echo "... src/lib/dag.s"
@@ -561,18 +325,9 @@ help:
 	@echo "... src/lib/graph.o"
 	@echo "... src/lib/graph.i"
 	@echo "... src/lib/graph.s"
-	@echo "... src/lib/subcellular.o"
-	@echo "... src/lib/subcellular.i"
-	@echo "... src/lib/subcellular.s"
-	@echo "... src/lib/ungraph.o"
-	@echo "... src/lib/ungraph.i"
-	@echo "... src/lib/ungraph.s"
-	@echo "... src/spin.o"
-	@echo "... src/spin.i"
-	@echo "... src/spin.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
+	@echo "... src/two_cns.o"
+	@echo "... src/two_cns.i"
+	@echo "... src/two_cns.s"
 .PHONY : help
 
 

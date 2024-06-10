@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/tcns.dir/src/two_cns.cpp.o -o ../bin/tcns   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 

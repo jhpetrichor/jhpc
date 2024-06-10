@@ -101,180 +101,180 @@ map<string, double> GeneExpress::active_by_top() {
     return result;
 }
 
-vector<UnGraph> GeneExpress::build_dynamic_PPI(const UnGraph* g,
-                                               DPIN_MEHTOD method) {
-    switch (method) {
-    case DPIN_MEHTOD::THREE_SIGMA: {
-        auto active = activate_by_three_sigma();
-        return build_dynamic_PPI_by_active(g, active, 36);
-    }
-    case DPIN_MEHTOD::TOP: {
-        auto active = active_by_top();
-        return build_dynamic_PPI_by_active(g, active, 36);
-    }
-    case DPIN_MEHTOD::TIME: {
-        auto active = activate_by_three_sigma();
-        return build_dynamic_PPI_by_time(g, active, 12);
-    }
-    case DPIN_MEHTOD::ESSENTIAL: {
-        auto active = active_by_top();
-        return build_dynamic_PPI_by_essential_protein(g, active, 36);
-    }
-    }
-}
+// vector<UnGraph> GeneExpress::build_dynamic_PPI(const UnGraph* g,
+//                                                DPIN_MEHTOD method) {
+//     switch (method) {
+//     case DPIN_MEHTOD::THREE_SIGMA: {
+//         auto active = activate_by_three_sigma();
+//         return build_dynamic_PPI_by_active(g, active, 36);
+//     }
+//     case DPIN_MEHTOD::TOP: {
+//         auto active = active_by_top();
+//         return build_dynamic_PPI_by_active(g, active, 36);
+//     }
+//     case DPIN_MEHTOD::TIME: {
+//         auto active = activate_by_three_sigma();
+//         return build_dynamic_PPI_by_time(g, active, 12);
+//     }
+//     case DPIN_MEHTOD::ESSENTIAL: {
+//         auto active = active_by_top();
+//         return build_dynamic_PPI_by_essential_protein(g, active, 36);
+//     }
+//     }
+// }
 
-vector<UnGraph> GeneExpress::build_dynamic_PPI_by_active(
-    const UnGraph* g, map<string, double>& active, int count) {
-std:
-    vector<UnGraph> dpins(count);
-    // update proteins
-    vector<set<string>> set_proteins(count);
-    vector<vector<string>> list_edges(count);
-    vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->ID2Protein) {
-        auto it = gene_express.find(protein->protein_name);
-        // 没有这个基因的表达信息，则在所有自网络中保留
-        if (it == gene_express.end()) {
-            for (int i = 0; i < count; ++i) {
-                set_proteins[i].insert(protein->protein_name);
-            }
-            continue;
-        }
-        // 存在基因的表达信息，则需要筛选，满足阈值则保留
-        for (int i = 0; i < count; ++i) {
-            double temp_express = (it->second)[i];
-            if (temp_express > active[it->first]) {
-                set_proteins[i].insert(it->first);
-            }
-        }
-    }
+// vector<UnGraph> GeneExpress::build_dynamic_PPI_by_active(
+//     const UnGraph* g, map<string, double>& active, int count) {
+// std:
+//     vector<UnGraph> dpins(count);
+//     // update proteins
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->ID2Protein) {
+//         auto it = gene_express.find(protein->protein_name);
+//         // 没有这个基因的表达信息，则在所有自网络中保留
+//         if (it == gene_express.end()) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein->protein_name);
+//             }
+//             continue;
+//         }
+//         // 存在基因的表达信息，则需要筛选，满足阈值则保留
+//         for (int i = 0; i < count; ++i) {
+//             double temp_express = (it->second)[i];
+//             if (temp_express > active[it->first]) {
+//                 set_proteins[i].insert(it->first);
+//             }
+//         }
+//     }
 
-    // update edges
-    for (auto& e : g->edges) {
-        for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
-            }
-        }
-    }
-    for (int i = 0; i < count; ++i) {
-        cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
-             << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
-        dpins[i] = temp_graph;
-    }
+//     // update edges
+//     for (auto& e : g->edges) {
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+//     for (int i = 0; i < count; ++i) {
+//         cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+//              << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
 
-    return dpins;
-}
+//     return dpins;
+// }
 
-vector<UnGraph>
-GeneExpress::build_dynamic_PPI_by_time(const UnGraph* g,
-                                       map<string, double>& active, int count) {
-    vector<UnGraph> dpins(count);
-    vector<set<string>> set_proteins(count);
-    vector<vector<string>> list_edges(count);
-    vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->ID2Protein) {
-        auto it = gene_express.find(protein->protein_name);
-        // 没有这个基因的表达信息，则在所有自网络中保留
-        if (it == gene_express.end()) {
-            for (int i = 0; i < count; ++i) {
-                set_proteins[i].insert(protein->protein_name);
-            }
-            continue;
-        }
-        // 存在基因的表达信息，则需要筛选，满足阈值则保留
-        for (int i = 0; i < count; ++i) {
-            vector<double> temp_expression{it->second[i], it->second[i + 1],
-                                           it->second[i + 2]};
-            auto max = std::max(temp_expression.begin(), temp_expression.end());
-            if (it->second[i] > active[it->first]) {
-                set_proteins[i].insert(it->first);
-            }
-        }
-    }
+// vector<UnGraph>
+// GeneExpress::build_dynamic_PPI_by_time(const UnGraph* g,
+//                                        map<string, double>& active, int count) {
+//     vector<UnGraph> dpins(count);
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->ID2Protein) {
+//         auto it = gene_express.find(protein->protein_name);
+//         // 没有这个基因的表达信息，则在所有自网络中保留
+//         if (it == gene_express.end()) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein->protein_name);
+//             }
+//             continue;
+//         }
+//         // 存在基因的表达信息，则需要筛选，满足阈值则保留
+//         for (int i = 0; i < count; ++i) {
+//             vector<double> temp_expression{it->second[i], it->second[i + 1],
+//                                            it->second[i + 2]};
+//             auto max = std::max(temp_expression.begin(), temp_expression.end());
+//             if (it->second[i] > active[it->first]) {
+//                 set_proteins[i].insert(it->first);
+//             }
+//         }
+//     }
 
-    // update edges
-    for (auto& e : g->edges) {
-        // if(set_proteins.count(e->node_a->protein_name) &&
-        // set_proteins.count(e->node_b->protein_name)) {
+//     // update edges
+//     for (auto& e : g->edges) {
+//         // if(set_proteins.count(e->node_a->protein_name) &&
+//         // set_proteins.count(e->node_b->protein_name)) {
 
-        // }
-        for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
-            }
-        }
-    }
-    for (int i = 0; i < count; ++i) {
-        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size()
-                  << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
-        dpins[i] = temp_graph;
-    }
-    return dpins;
-}
+//         // }
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+//     for (int i = 0; i < count; ++i) {
+//         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size()
+//                   << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
+//     return dpins;
+// }
 
-vector<UnGraph> GeneExpress::build_dynamic_PPI_by_essential_protein(
-    const UnGraph* g, map<string, double>& active, int count) {
-    vector<UnGraph> dpins(count);
-    vector<set<string>> set_proteins(count);
-    vector<vector<string>> list_edges(count);
-    vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->ID2Protein) {
-        auto it = gene_express.find(protein->protein_name);
-        // 1、 没有这个基因的表达信息
-        // 2、 若当前蛋白质为关键蛋白质
-        // 则在所有自网络中保留
-        if (it == gene_express.end() || essential_proteins.count(it->first)) {
-            for (int i = 0; i < count; ++i) {
-                set_proteins[i].insert(protein->protein_name);
-            }
-            continue;
-        }
-        // 存在基因的表达信息，则需要筛选，满足阈值则保留
-        for (int i = 0; i < count; ++i) {
-            vector<double> temp_expression{it->second[i], it->second[i + 1],
-                                           it->second[i + 2]};
-            auto max = std::max(temp_expression.begin(), temp_expression.end());
-            if (it->second[i] > active[it->first]) {
-                set_proteins[i].insert(it->first);
-            }
-        }
-    }
+// vector<UnGraph> GeneExpress::build_dynamic_PPI_by_essential_protein(
+//     const UnGraph* g, map<string, double>& active, int count) {
+//     vector<UnGraph> dpins(count);
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->ID2Protein) {
+//         auto it = gene_express.find(protein->protein_name);
+//         // 1、 没有这个基因的表达信息
+//         // 2、 若当前蛋白质为关键蛋白质
+//         // 则在所有自网络中保留
+//         if (it == gene_express.end() || essential_proteins.count(it->first)) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein->protein_name);
+//             }
+//             continue;
+//         }
+//         // 存在基因的表达信息，则需要筛选，满足阈值则保留
+//         for (int i = 0; i < count; ++i) {
+//             vector<double> temp_expression{it->second[i], it->second[i + 1],
+//                                            it->second[i + 2]};
+//             auto max = std::max(temp_expression.begin(), temp_expression.end());
+//             if (it->second[i] > active[it->first]) {
+//                 set_proteins[i].insert(it->first);
+//             }
+//         }
+//     }
 
-    // update edges
-    for (auto& e : g->edges) {
-        // if(set_proteins.count(e->node_a->protein_name) &&
-        // set_proteins.count(e->node_b->protein_name)) {
+//     // update edges
+//     for (auto& e : g->edges) {
+//         // if(set_proteins.count(e->node_a->protein_name) &&
+//         // set_proteins.count(e->node_b->protein_name)) {
 
-        // }
-        for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
-            }
-        }
-    }
-    for (int i = 0; i < count; ++i) {
-        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
-                  << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
-        dpins[i] = temp_graph;
-    }
-    return dpins;
-}
+//         // }
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+//     for (int i = 0; i < count; ++i) {
+//         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+//                   << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
+//     return dpins;
+// }
 
 pair<double, double> GeneExpress::calculate_mean_varience(vector<double>& arr) {
     double sum = accumulate(arr.begin(), arr.end(), 0.0);
@@ -287,19 +287,318 @@ pair<double, double> GeneExpress::calculate_mean_varience(vector<double>& arr) {
     return make_pair(mean, varience);
 }
 
-vector<UnGraph> GeneExpress::build_KPIN(const UnGraph* g) {
+// vector<UnGraph> GeneExpress::build_KPIN(const UnGraph* g) {
+//     int count = 36;
+//     map<string, double> active;
+//     for (auto& p : g->proteins) {
+//         // 查找基因表达
+//         double active_temp = 0.0;
+//         auto it = gene_express.find(p->protein_name);
+//         if (it != gene_express.end()) {
+//             auto mean_varience = calculate_mean_varience(it->second);
+//             if (essential_proteins.count(p->protein_name)) {
+//                 // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
+//                 // 的大多数时间内保持活性
+//                 active_temp = mean_varience.first + pow(mean_varience.second, 0.5) * (mean_varience.second / (1.0 +  mean_varience.second));
+//                 // active_temp = mean_varience.first;
+//             } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
+//                 active_temp =
+//                     mean_varience.first - pow(mean_varience.second, 0.5);
+//             }
+//         } else {
+//             active_temp = 0.0;
+//         }
+//         active.insert(make_pair(p->protein_name, active_temp));
+//     }
+
+//     // 构建动态网络
+//     vector<UnGraph> dpins(count);
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->proteins_name) {
+//         // 是够含有当前蛋白质的基因表达数据？
+//         auto it = gene_express.find(protein);
+//         if (it == gene_express.end()) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein);
+//             }
+//             continue;
+//         }
+//         for (int i = 0; i < count; ++i) {
+//             if (it->second[i] > active[protein]) {
+//                 set_proteins[i].insert(protein);
+//             }
+//         }
+//     }
+
+//     // update edges
+//     for (auto& e : g->edges) {
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < count; ++i) {
+//         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+//                   << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
+//     return dpins;
+// }
+
+// /**
+//  * @brief: 构建动态网络，使用
+//  * @param {UnGraph*} g
+//  * @return {*}
+//  */
+// vector<UnGraph> GeneExpress::build_KPIN2(const UnGraph* g) {
+//     int count = 12;
+//     map<string, double> active;
+//     for (auto& p : g->proteins) {
+//         // 查找基因表达
+//         double active_temp = 0.0;
+//         auto it = gene_express.find(p->protein_name);
+//         if (it != gene_express.end()) {
+//             auto mean_varience = calculate_mean_varience(it->second);
+//             if (essential_proteins.count(p->protein_name)) {
+//                 // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
+//                 // 的大多数时间内保持活性
+//                 active_temp = mean_varience.first;
+//             } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
+//                 active_temp =
+//                     mean_varience.first - pow(mean_varience.second, 0.5);
+//             }
+//         } else {
+//             active_temp = 0.0;
+//         }
+//         active.insert(make_pair(p->protein_name, active_temp));
+//     }
+
+//     // 构建动态网络
+//     vector<UnGraph> dpins(count);
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->proteins_name) {
+//         // 是够含有当前蛋白质的基因表达数据？
+//         auto it = gene_express.find(protein);
+//         if (it == gene_express.end()) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein);
+//             }
+//             continue;
+//         }
+//         for (int i = 0; i < count; ++i) {
+//             double exp_temp =
+//                 (it->second[i] + it->second[12 + i] + it->second[24 + i]) / 3;
+//             if (exp_temp > active[protein]) {
+//                 set_proteins[i].insert(protein);
+//             }
+//         }
+//     }
+
+//     // update edges
+//     for (auto& e : g->edges) {
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < count; ++i) {
+//         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+//                   << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
+//     return dpins;
+// }
+
+// vector<UnGraph> GeneExpress::build_KPIN_min(const UnGraph* g) {
+//     int count = 12;
+//     map<string, double> active;
+//     for (auto& p : g->proteins) {
+//         // 查找基因表达
+//         double active_temp = 0.0;
+//         auto it = gene_express.find(p->protein_name);
+//         if (it != gene_express.end()) {
+//             auto mean_varience = calculate_mean_varience(it->second);
+//             if (essential_proteins.count(p->protein_name)) {
+//                 // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
+//                 // 的大多数时间内保持活性
+//                 active_temp = mean_varience.first;
+//             } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
+//                 active_temp =
+//                     mean_varience.first - pow(mean_varience.second, 0.5);
+//             }
+//         } else {
+//             active_temp = 0.0;
+//         }
+//         active.insert(make_pair(p->protein_name, active_temp));
+//     }
+
+//     // 构建动态网络
+//     vector<UnGraph> dpins(count);
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->proteins_name) {
+//         // 是够含有当前蛋白质的基因表达数据？
+//         auto it = gene_express.find(protein);
+//         if (it == gene_express.end()) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein);
+//             }
+//             continue;
+//         }
+//         for (int i = 0; i < count; ++i) {
+//             double exp_temp_min = MAXFLOAT;
+//             vector<double> arr{it->second[i], it->second[12 + i],
+//                                it->second[24 + i]};
+//             for (auto& a : arr) {
+//                 if (a < exp_temp_min) {
+//                     exp_temp_min = a;
+//                 }
+//             }
+
+//             if (exp_temp_min > active[protein]) {
+//                 set_proteins[i].insert(protein);
+//             }
+//         }
+//     }
+
+//     // update edges
+//     for (auto& e : g->edges) {
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < count; ++i) {
+//         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+//                   << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
+//     return dpins;
+// }
+
+// // 关键蛋白质又更高的阈值
+// vector<UnGraph> GeneExpress::build_KPINN(const UnGraph* g) {
+//     int count = 36;
+//     map<string, double> active;
+//     for (auto& p : g->proteins) {
+//         // 查找基因表达
+//         double active_temp = 0.0;
+//         auto it = gene_express.find(p->protein_name);
+//         if (it != gene_express.end()) {
+//             auto mean_varience = calculate_mean_varience(it->second);
+//             if (essential_proteins.count(p->protein_name)) {
+//                 // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
+//                 // 的大多数时间内保持活性
+//                 active_temp = mean_varience.first - pow(mean_varience.second, 0.5);
+
+//             } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
+//                 active_temp = mean_varience.first;
+//             }
+//         } else {
+//             active_temp = 0.0;
+//         }
+//         active.insert(make_pair(p->protein_name, active_temp));
+//     }
+
+//     // 构建动态网络
+//     vector<UnGraph> dpins(count);
+//     vector<set<string>> set_proteins(count);
+//     vector<vector<string>> list_edges(count);
+//     vector<vector<double>> edge_weight(count);
+//     for (auto& protein : g->proteins_name) {
+//         // 是够含有当前蛋白质的基因表达数据？
+//         auto it = gene_express.find(protein);
+//         if (it == gene_express.end()) {
+//             for (int i = 0; i < count; ++i) {
+//                 set_proteins[i].insert(protein);
+//             }
+//             continue;
+//         }
+//         for (int i = 0; i < count; ++i) {
+//             if (it->second[i] > active[protein]) {
+//                 set_proteins[i].insert(protein);
+//             }
+//         }
+//     }
+
+//     // update edges
+//     for (auto& e : g->edges) {
+//         for (int i = 0; i < count; ++i) {
+//             if (set_proteins[i].count(e->node_a->protein_name) &&
+//                 set_proteins[i].count(e->node_b->protein_name)) {
+//                 list_edges[i].emplace_back(e->node_a->protein_name);
+//                 list_edges[i].emplace_back(e->node_b->protein_name);
+//                 edge_weight[i].emplace_back(e->balanced_weight);
+//             }
+//         }
+//     }
+
+//     for (int i = 0; i < count; ++i) {
+//         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+//                   << endl;
+//         UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
+//                            move(edge_weight[i]));
+//         dpins[i] = temp_graph;
+//     }
+//     return dpins;
+// }
+
+
+// // 留待后面
+// double GeneExpress::mutual_information(string& p1, string& p2) {
+    
+// }
+
+// // 计算所有基因的低中高三个等级的表达值
+// void GeneExpress::calculate_expression_level() {
+//     for(auto& it: gene_express) {
+//         vector<double> temp_expression(it.second.begin(), it.second.end());
+//         std::sort(temp_expression.begin(), temp_expression.end());
+//         pair<double, double> level{temp_expression[12], temp_expression[24]};
+//     }
+// }
+
+
+vector<Graph> GeneExpress::build_KPIN(const Graph* g) {
     int count = 36;
     map<string, double> active;
-    for (auto& p : g->proteins) {
+    for (auto p = 0; p < g->node_count; ++p) {
         // 查找基因表达
         double active_temp = 0.0;
-        auto it = gene_express.find(p->protein_name);
+        auto it = gene_express.find(g->id_protein.find(p)->second);
         if (it != gene_express.end()) {
             auto mean_varience = calculate_mean_varience(it->second);
-            if (essential_proteins.count(p->protein_name)) {
+            if (essential_proteins.count(g->id_protein.find(p)->second)) {
                 // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
                 // 的大多数时间内保持活性
-                active_temp = mean_varience.first;
+                active_temp = mean_varience.first + pow(mean_varience.second, 0.5) * (mean_varience.second / (1.0 +  mean_varience.second));
+                // active_temp = mean_varience.first;
             } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
                 active_temp =
                     mean_varience.first - pow(mean_varience.second, 0.5);
@@ -307,16 +606,18 @@ vector<UnGraph> GeneExpress::build_KPIN(const UnGraph* g) {
         } else {
             active_temp = 0.0;
         }
-        active.insert(make_pair(p->protein_name, active_temp));
+        active.insert(make_pair(g->id_protein.find(p)->second, active_temp));
+        auto it1 = gene_express.find(g->id_protein.find(p)->second);
     }
 
     // 构建动态网络
-    vector<UnGraph> dpins(count);
+    vector<Graph> dpins(count);
     vector<set<string>> set_proteins(count);
     vector<vector<string>> list_edges(count);
     vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->proteins_name) {
+    for (int i = 0; i < g->node_count; ++i) {
         // 是够含有当前蛋白质的基因表达数据？
+        string protein = g->id_protein.find(i)->second;
         auto it = gene_express.find(protein);
         if (it == gene_express.end()) {
             for (int i = 0; i < count; ++i) {
@@ -330,15 +631,20 @@ vector<UnGraph> GeneExpress::build_KPIN(const UnGraph* g) {
             }
         }
     }
-
+    
     // update edges
     for (auto& e : g->edges) {
+        string smaller = g->id_protein.find(e.smllar)->second;
+        string bigger = g->id_protein.find(e.bigger)->second;
+        // std::cout << smaller << "\t" << bigger << endl; 
         for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
+            if (set_proteins[i].count(g->id_protein.find(e.smllar)->second) &&
+                set_proteins[i].count(g->id_protein.find(e.bigger)->second)) {
+                //std::cout << "yes\t" << g->id_protein.find(e.smllar)->second << "\t" << g->id_protein.find(e.bigger)->second << endl;
+
+                list_edges[i].emplace_back(g->id_protein.find(e.smllar)->second);
+                list_edges[i].emplace_back(g->id_protein.find(e.bigger)->second);
+                edge_weight[i].emplace_back(e.weight);
             }
         }
     }
@@ -346,223 +652,7 @@ vector<UnGraph> GeneExpress::build_KPIN(const UnGraph* g) {
     for (int i = 0; i < count; ++i) {
         std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
                   << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
-        dpins[i] = temp_graph;
-    }
-    return dpins;
-}
-
-/**
- * @brief: 构建动态网络，使用
- * @param {UnGraph*} g
- * @return {*}
- */
-vector<UnGraph> GeneExpress::build_KPIN2(const UnGraph* g) {
-    int count = 12;
-    map<string, double> active;
-    for (auto& p : g->proteins) {
-        // 查找基因表达
-        double active_temp = 0.0;
-        auto it = gene_express.find(p->protein_name);
-        if (it != gene_express.end()) {
-            auto mean_varience = calculate_mean_varience(it->second);
-            if (essential_proteins.count(p->protein_name)) {
-                // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
-                // 的大多数时间内保持活性
-                active_temp = mean_varience.first;
-            } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
-                active_temp =
-                    mean_varience.first - pow(mean_varience.second, 0.5);
-            }
-        } else {
-            active_temp = 0.0;
-        }
-        active.insert(make_pair(p->protein_name, active_temp));
-    }
-
-    // 构建动态网络
-    vector<UnGraph> dpins(count);
-    vector<set<string>> set_proteins(count);
-    vector<vector<string>> list_edges(count);
-    vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->proteins_name) {
-        // 是够含有当前蛋白质的基因表达数据？
-        auto it = gene_express.find(protein);
-        if (it == gene_express.end()) {
-            for (int i = 0; i < count; ++i) {
-                set_proteins[i].insert(protein);
-            }
-            continue;
-        }
-        for (int i = 0; i < count; ++i) {
-            double exp_temp =
-                (it->second[i] + it->second[12 + i] + it->second[24 + i]) / 3;
-            if (exp_temp > active[protein]) {
-                set_proteins[i].insert(protein);
-            }
-        }
-    }
-
-    // update edges
-    for (auto& e : g->edges) {
-        for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
-            }
-        }
-    }
-
-    for (int i = 0; i < count; ++i) {
-        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
-                  << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
-        dpins[i] = temp_graph;
-    }
-    return dpins;
-}
-
-vector<UnGraph> GeneExpress::build_KPIN_min(const UnGraph* g) {
-    int count = 12;
-    map<string, double> active;
-    for (auto& p : g->proteins) {
-        // 查找基因表达
-        double active_temp = 0.0;
-        auto it = gene_express.find(p->protein_name);
-        if (it != gene_express.end()) {
-            auto mean_varience = calculate_mean_varience(it->second);
-            if (essential_proteins.count(p->protein_name)) {
-                // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
-                // 的大多数时间内保持活性
-                active_temp = mean_varience.first;
-            } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
-                active_temp =
-                    mean_varience.first - pow(mean_varience.second, 0.5);
-            }
-        } else {
-            active_temp = 0.0;
-        }
-        active.insert(make_pair(p->protein_name, active_temp));
-    }
-
-    // 构建动态网络
-    vector<UnGraph> dpins(count);
-    vector<set<string>> set_proteins(count);
-    vector<vector<string>> list_edges(count);
-    vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->proteins_name) {
-        // 是够含有当前蛋白质的基因表达数据？
-        auto it = gene_express.find(protein);
-        if (it == gene_express.end()) {
-            for (int i = 0; i < count; ++i) {
-                set_proteins[i].insert(protein);
-            }
-            continue;
-        }
-        for (int i = 0; i < count; ++i) {
-            double exp_temp_min = MAXFLOAT;
-            vector<double> arr{it->second[i], it->second[12 + i],
-                               it->second[24 + i]};
-            for (auto& a : arr) {
-                if (a < exp_temp_min) {
-                    exp_temp_min = a;
-                }
-            }
-
-            if (exp_temp_min > active[protein]) {
-                set_proteins[i].insert(protein);
-            }
-        }
-    }
-
-    // update edges
-    for (auto& e : g->edges) {
-        for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
-            }
-        }
-    }
-
-    for (int i = 0; i < count; ++i) {
-        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
-                  << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
-        dpins[i] = temp_graph;
-    }
-    return dpins;
-}
-
-// 关键蛋白质又更高的阈值
-vector<UnGraph> GeneExpress::build_KPINN(const UnGraph* g) {
-    int count = 36;
-    map<string, double> active;
-    for (auto& p : g->proteins) {
-        // 查找基因表达
-        double active_temp = 0.0;
-        auto it = gene_express.find(p->protein_name);
-        if (it != gene_express.end()) {
-            auto mean_varience = calculate_mean_varience(it->second);
-            if (essential_proteins.count(p->protein_name)) {
-                // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
-                // 的大多数时间内保持活性
-                active_temp = mean_varience.first - pow(mean_varience.second, 0.5);
-
-            } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
-                active_temp = mean_varience.first;
-            }
-        } else {
-            active_temp = 0.0;
-        }
-        active.insert(make_pair(p->protein_name, active_temp));
-    }
-
-    // 构建动态网络
-    vector<UnGraph> dpins(count);
-    vector<set<string>> set_proteins(count);
-    vector<vector<string>> list_edges(count);
-    vector<vector<double>> edge_weight(count);
-    for (auto& protein : g->proteins_name) {
-        // 是够含有当前蛋白质的基因表达数据？
-        auto it = gene_express.find(protein);
-        if (it == gene_express.end()) {
-            for (int i = 0; i < count; ++i) {
-                set_proteins[i].insert(protein);
-            }
-            continue;
-        }
-        for (int i = 0; i < count; ++i) {
-            if (it->second[i] > active[protein]) {
-                set_proteins[i].insert(protein);
-            }
-        }
-    }
-
-    // update edges
-    for (auto& e : g->edges) {
-        for (int i = 0; i < count; ++i) {
-            if (set_proteins[i].count(e->node_a->protein_name) &&
-                set_proteins[i].count(e->node_b->protein_name)) {
-                list_edges[i].emplace_back(e->node_a->protein_name);
-                list_edges[i].emplace_back(e->node_b->protein_name);
-                edge_weight[i].emplace_back(e->balanced_weight);
-            }
-        }
-    }
-
-    for (int i = 0; i < count; ++i) {
-        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
-                  << endl;
-        UnGraph temp_graph(move(set_proteins[i]), move(list_edges[i]),
-                           move(edge_weight[i]));
+        Graph temp_graph(list_edges[i]);
         dpins[i] = temp_graph;
     }
     return dpins;

@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-05-28 14:45:07
+ * @LastEditTime: 2024-05-31 10:15:52
  */
 #ifndef __DAG_H__
 #define __DAG_H__
@@ -38,6 +38,7 @@ public:
 class DAG {
 public:
     map<pair<string, string>, double> Similarity;
+    map<string, set<string>> protein2gos;
     vector<Node*> nodes;
     vector<vector<Relation>> relation;
     map<string, int> GO2ID;
@@ -60,9 +61,10 @@ public:
     void find_all_paths(Node* a, Node* b, vector<Node*>& path, vector<vector<Node*>>& all_path);
     static void print_path(const vector<vector<Node*>>&);
     double get_similarity_go_gos_by_max(const string&, const set<string>&);
-    double get_similarity_protein(const set<string>& gos1, const set<string>& gos2);
+    double get_similarity_protein(const string& gos1, const string& gos2);
 private:
     double similarity(int, int);
+    void read_protein_go(string file_path);
 };
 
 #endif // __DAG_H__

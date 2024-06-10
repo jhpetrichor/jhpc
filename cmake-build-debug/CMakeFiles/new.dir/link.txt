@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/new.dir/src/new.cpp.o -o /home/jh/code/JHPC/bin/new   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib /home/jh/code/JHPC/lib/libcpdp.so 
