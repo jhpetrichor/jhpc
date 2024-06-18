@@ -2,7 +2,7 @@
  * @Description: 
  * @Author: jh
  * @Date: 2024-04-30 17:11:48
- * @LastEditTime: 2024-06-10 21:12:57
+ * @LastEditTime: 2024-06-12 07:57:23
  */
 
 #ifndef __GENE_EXPRESS_H__
@@ -49,6 +49,7 @@ public:
     map<string, double> active_by_top();
     // vector<UnGraph> build_KPIN(const UnGraph* g);
     vector<Graph> build_KPIN(const Graph* g);
+    vector<Graph> build_KPIN1(const Graph* g);
     // vector<UnGraph> build_KPIN2(const UnGraph* g);
     // vector<UnGraph> build_KPIN_min(const UnGraph* g);
     // vector<UnGraph> build_KPINN(const UnGraph* g);

@@ -44,10 +44,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/277/bin/cmake/linux/x64/bin/cmake
+CMAKE_COMMAND = /snap/clion/282/bin/cmake/linux/x64/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/277/bin/cmake/linux/x64/bin/cmake -E rm -f
+RM = /snap/clion/282/bin/cmake/linux/x64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -92,6 +92,7 @@ tcns_EXTERNAL_OBJECTS =
 
 /home/jh/code/JHPC/bin/tcns: CMakeFiles/tcns.dir/src/two_cns.cpp.o
 /home/jh/code/JHPC/bin/tcns: CMakeFiles/tcns.dir/build.make
+/home/jh/code/JHPC/bin/tcns: /home/jh/code/JHPC/lib/libcpdp.so
 /home/jh/code/JHPC/bin/tcns: CMakeFiles/tcns.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/jh/code/JHPC/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX executable /home/jh/code/JHPC/bin/tcns"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/tcns.dir/link.txt --verbose=$(VERBOSE)

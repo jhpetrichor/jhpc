@@ -1,5 +1,6 @@
 /home/jh/code/JHPC/cmake-build-debug/CMakeFiles/cpdp.dir
 /home/jh/code/JHPC/cmake-build-debug/CMakeFiles/cns.dir
 /home/jh/code/JHPC/cmake-build-debug/CMakeFiles/tcns.dir
+/home/jh/code/JHPC/cmake-build-debug/CMakeFiles/test.dir
 /home/jh/code/JHPC/cmake-build-debug/CMakeFiles/edit_cache.dir
 /home/jh/code/JHPC/cmake-build-debug/CMakeFiles/rebuild_cache.dir

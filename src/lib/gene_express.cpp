@@ -657,3 +657,78 @@ vector<Graph> GeneExpress::build_KPIN(const Graph* g) {
     }
     return dpins;
 }
+
+
+vector<Graph> GeneExpress::build_KPIN1(const Graph* g) {
+    int count = 12;
+    map<string, double> active;
+    for (auto p = 0; p < g->node_count; ++p) {
+        // 查找基因表达
+        double active_temp = 0.0;
+        auto it = gene_express.find(g->id_protein.find(p)->second);
+        if (it != gene_express.end()) {
+            auto mean_varience = calculate_mean_varience(it->second);
+            if (essential_proteins.count(g->id_protein.find(p)->second)) {
+                // 是关键蛋白质，基因表达活性阈值更低一些，以保证能在生命周期中
+                // 的大多数时间内保持活性
+                active_temp = mean_varience.first + pow(mean_varience.second, 0.5) * (mean_varience.second / (1.0 +  mean_varience.second));
+                // active_temp = mean_varience.first;
+            } else { // 非关键蛋白质，具有更高的基因表达活性表达阈值
+                active_temp =
+                    mean_varience.first - pow(mean_varience.second, 0.5);
+            }
+        } else {
+            active_temp = 0.0;
+        }
+        active.insert(make_pair(g->id_protein.find(p)->second, active_temp));
+        auto it1 = gene_express.find(g->id_protein.find(p)->second);
+    }
+
+    // 构建动态网络
+    vector<Graph> dpins(count);
+    vector<set<string>> set_proteins(count);
+    vector<vector<string>> list_edges(count);
+    vector<vector<double>> edge_weight(count);
+    for (int i = 0; i < g->node_count; ++i) {
+        // 是够含有当前蛋白质的基因表达数据？
+        string protein = g->id_protein.find(i)->second;
+        auto it = gene_express.find(protein);
+        if (it == gene_express.end()) {
+            for (int i = 0; i < count; ++i) {
+                set_proteins[i].insert(protein);
+            }
+            continue;
+        }
+        for (int i = 0; i < count; ++i) {
+            double exp = (it->second[i] + it->second[i + 12] + it->second[i + 24]) / 3;
+            if (exp > active[protein]) {
+                set_proteins[i].insert(protein);
+            }
+        }
+    }
+    
+    // update edges
+    for (auto& e : g->edges) {
+        string smaller = g->id_protein.find(e.smllar)->second;
+        string bigger = g->id_protein.find(e.bigger)->second;
+        // std::cout << smaller << "\t" << bigger << endl; 
+        for (int i = 0; i < count; ++i) {
+            if (set_proteins[i].count(g->id_protein.find(e.smllar)->second) &&
+                set_proteins[i].count(g->id_protein.find(e.bigger)->second)) {
+                //std::cout << "yes\t" << g->id_protein.find(e.smllar)->second << "\t" << g->id_protein.find(e.bigger)->second << endl;
+
+                list_edges[i].emplace_back(g->id_protein.find(e.smllar)->second);
+                list_edges[i].emplace_back(g->id_protein.find(e.bigger)->second);
+                edge_weight[i].emplace_back(e.weight);
+            }
+        }
+    }
+
+    for (int i = 0; i < count; ++i) {
+        std::cout << set_proteins[i].size() << "\t" << list_edges[i].size() / 2
+                  << endl;
+        Graph temp_graph(list_edges[i]);
+        dpins[i] = temp_graph;
+    }
+    return dpins;
+}

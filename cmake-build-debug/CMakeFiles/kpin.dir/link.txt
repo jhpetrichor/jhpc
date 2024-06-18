@@ -1,1 +1,0 @@
-/usr/bin/c++ -g CMakeFiles/kpin.dir/src/kpin.cpp.o -o /home/jh/code/JHPC/bin/kpin   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib /home/jh/code/JHPC/lib/libcpdp.so 

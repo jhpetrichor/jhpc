@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/cns.dir/src/cns.cpp.o -o ../bin/cns   -L/home/jh/code/JHPC/lib  -Wl,-rpath,/home/jh/code/JHPC/lib ../lib/libcpdp.so 

@@ -48,10 +48,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/277/bin/cmake/linux/x64/bin/cmake
+CMAKE_COMMAND = /snap/clion/282/bin/cmake/linux/x64/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/277/bin/cmake/linux/x64/bin/cmake -E rm -f
+RM = /snap/clion/282/bin/cmake/linux/x64/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /home/jh/code/JHPC/cmake-build-debug
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
-	/snap/clion/277/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/282/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/snap/clion/277/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/282/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -154,6 +154,19 @@ tcns: cmake_check_build_system
 tcns/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/tcns.dir/build.make CMakeFiles/tcns.dir/build
 .PHONY : tcns/fast
+
+#=============================================================================
+# Target rules for targets named test
+
+# Build rule for target.
+test: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test
+.PHONY : test
+
+# fast build rule for target.
+test/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/build
+.PHONY : test/fast
 
 src/cns.o: src/cns.cpp.o
 .PHONY : src/cns.o
@@ -275,6 +288,30 @@ src/lib/graph.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/cpdp.dir/build.make CMakeFiles/cpdp.dir/src/lib/graph.cpp.s
 .PHONY : src/lib/graph.cpp.s
 
+src/test.o: src/test.cpp.o
+.PHONY : src/test.o
+
+# target to build an object file
+src/test.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.o
+.PHONY : src/test.cpp.o
+
+src/test.i: src/test.cpp.i
+.PHONY : src/test.i
+
+# target to preprocess a source file
+src/test.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.i
+.PHONY : src/test.cpp.i
+
+src/test.s: src/test.cpp.s
+.PHONY : src/test.s
+
+# target to generate assembly for a file
+src/test.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test.dir/build.make CMakeFiles/test.dir/src/test.cpp.s
+.PHONY : src/test.cpp.s
+
 src/two_cns.o: src/two_cns.cpp.o
 .PHONY : src/two_cns.o
 
@@ -310,6 +347,7 @@ help:
 	@echo "... cns"
 	@echo "... cpdp"
 	@echo "... tcns"
+	@echo "... test"
 	@echo "... src/cns.o"
 	@echo "... src/cns.i"
 	@echo "... src/cns.s"
@@ -325,6 +363,9 @@ help:
 	@echo "... src/lib/graph.o"
 	@echo "... src/lib/graph.i"
 	@echo "... src/lib/graph.s"
+	@echo "... src/test.o"
+	@echo "... src/test.i"
+	@echo "... src/test.s"
 	@echo "... src/two_cns.o"
 	@echo "... src/two_cns.i"
 	@echo "... src/two_cns.s"

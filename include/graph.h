@@ -8,7 +8,6 @@
 #include <map>
 #include <set>
 #include <unordered_map>
-#include <unordered_set>
 #include <vector>
 
 using namespace std;
@@ -55,9 +54,9 @@ class Graph {
     explicit Graph(string& ppi_file);
     explicit Graph(vector<string>& edge_list, vector<double>* = nullptr);
     ~Graph() = default;
-    set<int> get_neighbor(int n);
+    set<int> get_neighbor(int n) const;
     void add_edge(int u, int v, double weight = 0.0);
-    // 谨慎使用不安全
+    // 谨慎使用不安全  
     void remove_edge(int u, int v);
     int get_edge_id(int u, int v) const;
     int degree(int id) const;
@@ -67,11 +66,16 @@ class Graph {
     double jaccard_similarity_more(int u, int v) const;
     void weighted_by_go_term();
     void weighted_by_go_term(vector<Edge>& edges) const;
+    // void weighted_by_go_term_Lin();
     void normalize_edge_weight_min_max();
     void update_edge_id();
     void calculate_balanced_weight(double balanced_index = 1.5);
     set<int> get_common_neighbor(int u, int v) const;
     pair<double, double> unidirectional_similarity(int u, int v) const;
+    double density(set<int>& nodes) const;
+    double density(set<int>& nodes1, set<int>& nodes2) const;
+    double evaluate(set<int>& complex) const;
+
 };
 
 namespace Complex {

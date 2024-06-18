@@ -78,7 +78,7 @@ Graph::Graph(vector<string>& edge_list, vector<double>* _edge_weight) {
     }
 }
 
-set<int> Graph::get_neighbor(int n) {
+set<int> Graph::get_neighbor(int n) const {
     auto it = adjancy_list.find(n);
     return it == adjancy_list.end() ? set<int>() : it->second;
 }
@@ -227,6 +227,19 @@ void Graph::weighted_by_go_term(vector<Edge>& __edges) const {
     }
 }
 
+// void Graph::weighted_by_go_term_Lin(){
+//         for (auto& e : edges) {
+//         string smaller = id_protein.find(e.smllar)->second;
+//         string bigger = id_protein.find(e.bigger)->second;
+//         e.weight = child_ancestor.get_similarity_protein_Lin(smaller,
+//         bigger);
+//             // 0.5 * (child_ancestor.get_similarity_protein_Lin(smaller,
+//             bigger) +
+//             //        ancestor_child.get_similarity_protein_Lin(smaller,
+//             bigger));
+//     }
+// }
+
 void Graph::normalize_edge_weight_min_max() {
     double max_weight = 0.0;
     double min_weight = 999999;
@@ -304,6 +317,51 @@ pair<double, double> Graph::unidirectional_similarity(int u, int v) const {
     const double u_v = static_cast<double>(common.size()) / degree(v);
     const double v_u = static_cast<double>(common.size()) / degree(u);
     return pair<double, double>(u_v, v_u);
+}
+
+double Graph::density(set<int>& nodes) const {
+    int count = 0;
+    for(auto i: nodes) {
+        for(auto j: nodes) {
+            if (i == j) {
+                continue;
+            }
+            if (connected[i][j]) {
+                count++;
+            }
+        }
+    }
+    return static_cast<double>(count) /
+           static_cast<double>(nodes.size() * (nodes.size() - 1));
+}
+
+double Graph::density(set<int>& nodes1, set<int>& nodes2) const {
+    int count = 0;
+    for(auto i: nodes1) {
+        for(auto j: nodes2) {
+            if(connected[i][j]) {
+                count += 1;
+            }
+        }
+    }
+    return static_cast<double>(count) /
+           static_cast<double>(nodes1.size() * nodes2.size());
+}
+double Graph::evaluate(set<int>& complex) const {
+    set<int> comunity_neighbor;
+    for(auto i: complex) {
+        auto i_neighbor = get_neighbor(i);
+        for(auto j: i_neighbor) {
+            if(complex.count(j)) {
+                continue;
+            }
+            comunity_neighbor.insert(j);
+        }
+    }
+
+    double in_density = density(complex);
+    double out_density = density(complex, comunity_neighbor);
+    return in_density / out_density;
 }
 
 /*======================== namespace Complex ================================ */
